@@ -1,0 +1,107 @@
+/* ============================================================
+   TIPOGRAFÍAS LOCALES
+   ============================================================ */
+
+/* Floreal — títulos, acentos, cursivas */
+@font-face {
+    font-family: 'Floreal';
+    src: url('tipografias/Floreal/Adelphe-Trouble-FlorealRegular.woff2') format('woff2'),
+         url('tipografias/Floreal/Adelphe-Trouble-FlorealRegular.woff')  format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Floreal';
+    src: url('tipografias/Floreal/Adelphe-Trouble-FlorealItalic.woff2') format('woff2'),
+         url('tipografias/Floreal/Adelphe-Trouble-FlorealItalic.woff')  format('woff');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Floreal';
+    src: url('tipografias/Floreal/Adelphe-Trouble-FlorealSemiBold.woff2') format('woff2'),
+         url('tipografias/Floreal/Adelphe-Trouble-FlorealSemiBold.woff')  format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Floreal';
+    src: url('tipografias/Floreal/Adelphe-Trouble-FlorealSemiBoldItalic.woff2') format('woff2'),
+         url('tipografias/Floreal/Adelphe-Trouble-FlorealSemiBoldItalic.woff')  format('woff');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Floreal';
+    src: url('tipografias/Floreal/Adelphe-Trouble-FlorealBold.woff2') format('woff2'),
+         url('tipografias/Floreal/Adelphe-Trouble-FlorealBold.woff')  format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Floreal';
+    src: url('tipografias/Floreal/Adelphe-Trouble-FlorealBoldItalic.woff2') format('woff2'),
+         url('tipografias/Floreal/Adelphe-Trouble-FlorealBoldItalic.woff')  format('woff');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* Enby Gertrude — texto corrido, UI, etiquetas */
+@font-face {
+    font-family: 'Enby Gertrude';
+    src: url('tipografias/woff2/Enby_Gertrude_roman.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+/* ============================================================
+   VARIABLES
+   ============================================================ */
+
+:root {
+    --fuente-principal: 'Enby Gertrude', 'Helvetica Neue', Arial, sans-serif;
+    --fuente-titulos-1: 'Floreal', Georgia, serif;   /* titulos principales, acentos */
+    --fuente-titulos-2: 'Floreal', Georgia, serif;   /* citas, texto grande destacado */
+
+    font-size: 16px;
+
+    /* Escala tipográfica */
+    --10pt:  0.75rem;    /*  12px */
+    --12pt:  0.875rem;   /*  14px */
+    --14pt:  1rem;       /*  16px */
+    --16pt:  1.125rem;   /*  18px */
+    --18pt:  1.25rem;    /*  20px */
+    --20pt:  1.5rem;     /*  24px */
+    --24pt:  1.75rem;    /*  28px */
+    --28pt:  2rem;       /*  32px */
+    --32pt:  2.25rem;    /*  36px */
+    --36pt:  2.5rem;     /*  40px */
+    --40pt:  3rem;       /*  48px */
+    --48pt:  3.5rem;     /*  56px */
+    --56pt:  4rem;       /*  64px */
+    --64pt:  5rem;       /*  80px */
+    --72pt:  5.5rem;     /*  88px */
+    --80pt:  6rem;       /*  96px */
+    --96pt:  7rem;       /* 112px */
+    --120pt: 9rem;       /* 144px */
+}
+
+* {
+    font-family: var(--fuente-principal);
+    font-size: var(--14pt);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}

@@ -1,0 +1,393 @@
+/* ============================================================
+   CONTENIDOS — Estilo flotante, inspirado en imagen2.png
+   Compartido por: reposteos/, aportes/, publicaciones/
+   ============================================================ */
+
+html {
+    background-color: var(--crema);
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+main {
+    display: block;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+
+/* ── Cabecera de sección ── */
+
+.contenido-cabecera {
+    padding: 7% 7% 6% 7%;
+    border-bottom: 1px solid rgba(248, 244, 236, 0.12);
+    display: grid;
+    box-sizing: border-box;
+    background-color: var(--verde-oscuro);
+}
+
+.breadcrumb {
+    font-size: var(--12pt);
+    color: rgba(197, 227, 238, 0.5);
+    margin-bottom: 16px;
+    grid-column: 1 / -1;
+}
+
+.breadcrumb a {
+    text-decoration: none;
+    color: rgba(197, 227, 238, 0.5);
+    transition: color 0.2s;
+}
+
+.breadcrumb a:hover {
+    color: var(--verde-claro);
+}
+
+.breadcrumb .sep {
+    margin: 0 8px;
+    opacity: 0.35;
+}
+
+.contenido-titulo {
+    font-family: var(--fuente-titulos-1);
+    font-size: var(--64pt);
+    color: var(--crema);
+    line-height: 0.95;
+}
+
+.contenido-descripcion {
+    font-size: var(--14pt);
+    color: var(--verde-claro);
+    margin-top: 16px;
+    line-height: 1.65;
+    max-width: 560px;
+}
+
+.contenido-contador {
+    font-family: var(--fuente-titulos-2);
+    font-size: var(--48pt);
+    color: rgba(248, 244, 236, 0.15);
+    line-height: 1;
+    align-self: end;
+    padding-left: 20px;
+}
+
+
+/* ── Masonry grid ── */
+
+.masonry {
+    padding: 5% 7%;
+    columns: 3;
+    column-gap: 40px;
+    box-sizing: border-box;
+    background-color: var(--crema);
+}
+
+/* Ítem flotante: sin borde, sin fondo de caja */
+.masonry-item {
+    break-inside: avoid;
+    margin-bottom: 48px;
+    display: block;
+    text-decoration: none;
+    color: var(--oscuro);
+}
+
+
+/* ── Imagen con filtro verde ── */
+
+.item-imagen {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 14px;
+    background-color: var(--crema-oscura);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Textura diagonal de fondo (placeholder) */
+.item-imagen::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 10px,
+        rgba(46, 31, 15, 0.10) 10px,
+        rgba(46, 31, 15, 0.10) 11px
+    );
+    z-index: 1;
+}
+
+/* Filtro de color verde salvia — desaparece en hover */
+.item-imagen::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(167, 212, 228, 0.58);
+    mix-blend-mode: multiply;
+    transition: opacity 0.45s ease;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.masonry-item:hover .item-imagen::after {
+    opacity: 0;
+}
+
+/* Texto placeholder visible sobre el filtro */
+.item-imagen > span {
+    position: relative;
+    z-index: 3;
+    font-size: var(--10pt);
+    color: rgba(255, 255, 255, 0.65);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-family: var(--fuente-principal);
+}
+
+/* Para imágenes reales dentro de .item-imagen */
+.item-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: sepia(0.25) saturate(0.6) hue-rotate(160deg) brightness(0.9);
+    transition: filter 0.45s ease;
+}
+
+.masonry-item:hover .item-imagen img {
+    filter: none;
+}
+
+
+/* ── Proporciones disponibles ── */
+
+.imagen-cuadrada  { aspect-ratio: 1 / 1; }
+.imagen-portrait  { aspect-ratio: 3 / 4; }
+.imagen-landscape { aspect-ratio: 4 / 3; }
+.imagen-banner    { aspect-ratio: 16 / 7; }
+.imagen-tall      { aspect-ratio: 2 / 3; }
+.imagen-panorama  { aspect-ratio: 21 / 9; }
+
+
+/* ── Contenido flotante (sin caja) ── */
+
+.item-contenido {
+    padding: 0;
+}
+
+.item-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.item-num {
+    font-family: var(--fuente-titulos-2);
+    font-size: var(--12pt);
+    color: var(--borde);
+}
+
+.item-titulo {
+    font-family: var(--fuente-titulos-1);
+    font-size: var(--18pt);
+    line-height: 1.35;
+    color: var(--oscuro);
+    margin-bottom: 10px;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.masonry-item:hover .item-titulo {
+    color: var(--verde-oscuro);
+}
+
+/* Variante grande */
+.masonry-item.grande .item-titulo {
+    font-size: var(--24pt);
+}
+
+.item-etiquetas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+/* Etiquetas pill */
+.etiqueta {
+    font-size: var(--10pt);
+    border: 1.5px solid var(--morado);
+    padding: 3px 11px;
+    color: var(--morado);
+    white-space: nowrap;
+    border-radius: 20px;
+    font-family: var(--fuente-principal);
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.masonry-item:hover .etiqueta {
+    background-color: var(--morado);
+    color: var(--blanco);
+}
+
+.item-fuente {
+    font-size: var(--10pt);
+    color: var(--verde-medio);
+    margin-top: 8px;
+}
+
+.item-desc {
+    font-size: var(--12pt);
+    color: var(--tierra);
+    line-height: 1.7;
+    margin-top: 6px;
+}
+
+
+/* ── Badges de estado ── */
+
+.item-estado {
+    font-size: var(--10pt);
+    padding: 2px 10px;
+    border: 1.5px solid;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.item-estado.publicado  { color: var(--verde-oscuro); border-color: var(--verde-oscuro); }
+.item-estado.en-proceso { color: var(--naranja);      border-color: var(--naranja); }
+.item-estado.borrador   { color: var(--tierra);       border-color: var(--tierra); }
+.item-estado.edicion    { color: var(--verde-medio);  border-color: var(--verde-medio); }
+
+
+/* ── Popup system (reposteos) ── */
+
+#popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    align-items: center;
+    justify-content: center;
+}
+
+body[data-hash^="repost-"] #popup-overlay {
+    display: flex;
+}
+
+.popup-fondo {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(28, 27, 40, 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    z-index: 1;
+}
+
+.popup {
+    display: none;
+    position: relative;
+    z-index: 2;
+    background-color: var(--blanco);
+    max-width: 660px;
+    width: 90%;
+    max-height: 82vh;
+    overflow-y: auto;
+    padding: 44px;
+    box-sizing: border-box;
+    animation: popup-entrar 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes popup-entrar {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0px); }
+}
+
+body[data-hash="repost-1"] #popup-repost-1,
+body[data-hash="repost-2"] #popup-repost-2,
+body[data-hash="repost-3"] #popup-repost-3,
+body[data-hash="repost-4"] #popup-repost-4,
+body[data-hash="repost-5"] #popup-repost-5,
+body[data-hash="repost-6"] #popup-repost-6 {
+    display: block;
+}
+
+.popup-tope {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 22px;
+}
+
+.popup-etiquetas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+/* Etiqueta dentro del popup */
+.popup-etiquetas .etiqueta {
+    border-color: var(--morado);
+    color: var(--morado);
+}
+
+.popup-cerrar {
+    font-size: var(--28pt);
+    text-decoration: none;
+    color: var(--oscuro);
+    line-height: 1;
+    padding: 0 4px;
+    transition: color 0.2s;
+    flex-shrink: 0;
+    margin-left: 16px;
+    margin-top: -4px;
+}
+
+.popup-cerrar:hover { color: var(--naranja); }
+
+.popup-titulo {
+    font-family: var(--fuente-titulos-1);
+    font-size: var(--24pt);
+    line-height: 1.3;
+    margin-bottom: 10px;
+    color: var(--oscuro);
+}
+
+.popup-fuente {
+    font-size: var(--10pt);
+    color: var(--verde-medio);
+    margin-bottom: 22px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--borde);
+}
+
+.popup-texto {
+    font-size: var(--14pt);
+    line-height: 1.85;
+    color: var(--oscuro);
+    margin-bottom: 16px;
+}
+
+.popup-link {
+    display: inline-block;
+    margin-top: 18px;
+    font-size: var(--12pt);
+    color: var(--verde-oscuro);
+    text-decoration: none;
+    border-bottom: 1.5px solid var(--verde-medio);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.popup-link:hover { color: var(--naranja); border-color: var(--naranja); }

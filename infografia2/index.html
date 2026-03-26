@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sección 2 — Evaluación del Impacto Económico del Apoyo Verde vs. Convencional</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+
+  :root {
+    --cream:    #f8f4ec;
+    --white:    #fdfaf5;
+    --dark:     #2e1f0f;
+    --brown:    #71502f;
+    --amber:    #fdc57e;
+    --amber-lt: #fef0d8;
+    --sage:     #a7d4e4;
+    --sage-lt:  #d8eef5;
+    --sage-dk:  #4a7d94;
+    --coral:    #c47854;
+    --coral-lt: #fce8d8;
+    --stone:    #9e9284;
+    --muted:    #8a7e74;
+    --border:   #c5dde7;
+    --tan:      #71502f;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--dark);
+    width: 1280px;
+    margin: 0 auto;
+    min-height: 900px;
+    padding: 36px 40px 28px;
+  }
+
+  .top-bar { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+  .badge-inf { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--sage-dk); text-transform: uppercase; }
+  .source-badge { background: var(--dark); color: #fff; font-size: 10px; padding: 4px 10px; border-radius: 3px; font-weight: 500; letter-spacing: 0.5px; white-space: nowrap; }
+  h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 28px; font-weight: 700; color: var(--dark); line-height: 1.2; margin-bottom: 4px; }
+  .subtitle { font-size: 12.5px; color: var(--muted); font-weight: 400; margin-bottom: 16px; }
+  .divider { border: none; border-top: 1px solid var(--border); margin-bottom: 20px; }
+
+  /* KPIs */
+  .kpi-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .kpi .num { font-size: 26px; font-weight: 700; color: var(--sage); letter-spacing: -1px; line-height: 1; }
+  .kpi .num.amber { color: var(--amber); }
+  .kpi .num.coral { color: var(--coral); }
+  .kpi .num.brown { color: var(--brown); }
+  .kpi .lbl  { font-size: 10.5px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+  .kpi .tag  { font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--sage-dk); margin-bottom: 3px; }
+
+  /* Grids */
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 18px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+  .grid-2 { display: grid; grid-template-columns: 1.2fr 1fr; gap: 14px; margin-bottom: 18px; }
+  .grid-2e { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+
+  /* Card */
+  .card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; }
+  .card-title { font-size: 10.5px; font-weight: 700; color: var(--brown); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+  .card-sub   { font-size: 10px; color: var(--muted); margin-bottom: 12px; line-height: 1.4; }
+
+  /* Lollipop */
+  .ll-row  { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; }
+  .ll-lbl  { font-size: 10.5px; color: var(--dark); width: 160px; flex-shrink: 0; line-height: 1.3; }
+  .ll-lbl.sm { width: 100px; }
+  .ll-lbl.md { width: 130px; }
+  .ll-lbl.lg { width: 200px; }
+  .ll-trk  { flex: 1; height: 3px; background: var(--border); border-radius: 2px; position: relative; }
+  .ll-bar  { height: 100%; border-radius: 2px; background: var(--sage); }
+  .ll-bar.amber { background: var(--amber); }
+  .ll-bar.coral { background: var(--coral); }
+  .ll-bar.brown { background: var(--brown); }
+  .ll-bar.tan   { background: var(--tan); }
+  .ll-bar.stone { background: var(--stone); }
+  .ll-dot  { position: absolute; right:-5px; top:50%; transform:translateY(-50%); width:9px; height:9px; border-radius:50%; background:var(--sage); }
+  .ll-dot.amber { background:var(--amber); }
+  .ll-dot.coral { background:var(--coral); }
+  .ll-dot.brown { background:var(--brown); }
+  .ll-dot.tan   { background:var(--tan); }
+  .ll-dot.stone { background:var(--stone); }
+  .ll-val  { font-size: 10.5px; font-weight: 600; color: var(--muted); width: 56px; text-align: right; }
+
+  /* Stacked bar */
+  .stk-bar { display: flex; height: 20px; border-radius: 3px; overflow: hidden; margin: 6px 0; gap: 1px; }
+  .stk-seg { display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: white; }
+
+  /* Legend */
+  .legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+  .lg-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--muted); }
+  .lg-dot  { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+
+  /* Note box */
+  .note { background: var(--sage-lt); border-left: 3px solid var(--sage); padding: 9px 12px; border-radius: 0 6px 6px 0; font-size: 10.5px; color: #2e1f0f; line-height: 1.5; margin-top: 10px; }
+  .note.amber { background: var(--amber-lt); border-left-color: var(--amber); color: #71502f; }
+  .note.coral { background: var(--coral-lt); border-left-color: var(--coral); color: #71502f; }
+
+  /* Section divider label */
+  .sec-label {
+    font-size: 9.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--stone); margin-bottom: 10px; padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Result matrix cell */
+  .rmat { text-align: center; padding: 10px 8px; border-radius: 6px; border: 1px solid var(--border); }
+  .rmat .ico { font-size: 18px; margin-bottom: 4px; }
+  .rmat .lbl { font-size: 9.5px; color: var(--muted); line-height: 1.3; }
+  .rmat .val { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+
+  /* Period cards */
+  .period-card { padding: 10px 12px; border-radius: 6px; border: 1px solid var(--border); background: var(--white); margin-bottom: 8px; }
+  .period-tag { font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px; }
+  .period-title { font-size: 10.5px; font-weight: 600; color: var(--dark); margin-bottom: 3px; }
+  .period-desc { font-size: 9.5px; color: var(--muted); line-height: 1.45; }
+
+  /* Comparison matrix */
+  .cmp-matrix { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 1px; background: var(--border); border-radius: 6px; overflow: hidden; margin-bottom: 12px; }
+  .cmp-cell { background: var(--white); padding: 8px 10px; font-size: 9.5px; }
+  .cmp-head { background: var(--cream); font-weight: 700; font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--stone); }
+  .sig-yes { color: var(--sage-dk); font-weight: 700; }
+  .sig-no  { color: var(--stone); font-style: italic; }
+  .sig-partial { color: var(--amber); font-weight: 600; }
+
+  /* Arc SVG */
+  .arc-wrap { text-align: center; }
+  .arc-wrap .arc-num { font-size: 22px; font-weight: 700; margin-top: 4px; }
+  .arc-wrap .arc-lbl { font-size: 10px; color: var(--muted); }
+
+  /* Dot grid */
+  .dot-grid { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+  .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--border); }
+  .dot.sage  { background: var(--sage); }
+  .dot.amber { background: var(--amber); }
+  .dot.coral { background: var(--coral); }
+  .dot.brown { background: var(--brown); }
+  .dot.tan   { background: var(--tan); }
+  .dot.stone { background: var(--stone); }
+
+  footer { border-top: 1px solid var(--border); padding-top: 12px; display: flex; justify-content: space-between; font-size: 9.5px; color: var(--muted); margin-top: 8px; }
+</style>
+<script>
+(function(){
+  var W = 1280;
+  function fit(){
+    var s = Math.min(1, window.innerWidth / W);
+    document.body.style.zoom = s;
+  }
+  window.addEventListener('load', fit);
+  window.addEventListener('resize', fit);
+})();
+</script></head>
+<body><nav style="position:sticky;top:0;z-index:1000;background:#2e1f0f;padding:14px 32px;display:flex;align-items:center;gap:20px;border-bottom:3px solid #fdc57e;box-sizing:border-box;">
+  <a href="../" style="text-decoration:none;color:#fdc57e;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.5px;white-space:nowrap;">← Inicio</a>
+  <span style="color:#f8f4ec;font-family:'Inter',sans-serif;font-size:12px;opacity:0.6;letter-spacing:0.3px;">Observatorio de Agricultura y Ganadería Sostenibles en Colombia</span>
+</nav>
+<div style="overflow-x:auto;padding-top:32px;">
+
+<!-- HEADER -->
+<div class="top-bar">
+  <div>
+    <div class="badge-inf">Infografía · Sección 2 · Analytical Study — Evaluación de Impacto</div>
+    <h1>¿Apoyar lo Verde Reduce los Rendimientos? Evaluación del Impacto Económico del Apoyo Agrícola Verde en Colombia</h1>
+    <p class="subtitle">Evaluación de impacto a nivel municipal (diferencias en diferencias) del apoyo público verde vs. convencional sobre producción, área cosechada y rendimientos · SECOP 2007–2023 · 48,072 contratos · 1,083 municipios</p>
+  </div>
+  <div class="source-badge">Fuente: SECOP · EVA · CRU-UEA | Analytical Study Final</div>
+</div>
+<hr class="divider">
+
+<!-- KPI ROW -->
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="tag">Contratos analizados</div>
+    <div class="num">48,072</div>
+    <div class="lbl">contratos públicos del sector agropecuario clasificados como verdes o convencionales (SECOP)</div>
+  </div>
+  <div class="kpi">
+    <div class="tag">Cobertura territorial</div>
+    <div class="num">1,083</div>
+    <div class="lbl">municipios con al menos un contrato agropecuario de valor ≥ $2/UPA en el análisis</div>
+  </div>
+  <div class="kpi">
+    <div class="tag">Resultado central</div>
+    <div class="num">Sin diferencia</div>
+    <div class="lbl">estadísticamente significativa en rendimientos entre contratos verdes y convencionales en el corto plazo</div>
+  </div>
+  <div class="kpi">
+    <div class="tag">Largo plazo</div>
+    <div class="num">Verde ≥</div>
+    <div class="lbl">En el largo plazo los contratos verdes desempeñan igual o mejor que los convencionales en todas las especificaciones</div>
+  </div>
+
+</div>
+
+<!-- SECTION 01: DISEÑO METODOLÓGICO -->
+<div class="sec-label">01 — Diseño Metodológico y Fuentes de Datos</div>
+<div class="grid-3">
+
+  <!-- SECOP -->
+  <div class="card">
+    <div class="card-title">Fuente 1: SECOP — Contratos públicos agropecuarios</div>
+    <div class="card-sub">Sistema Electrónico de Contratación Pública · Clasificación verde / convencional mediante raíces de términos</div>
+
+    <div style="margin-bottom:12px;">
+      <div style="font-size:28px;font-weight:700;color:var(--sage);letter-spacing:-2px;line-height:1;">48,072</div>
+      <div style="font-size:10px;color:var(--muted);">contratos en 1,083 municipios · umbral mínimo ≥$2/UPA</div>
+    </div>
+
+    <div class="ll-row">
+      <div class="ll-lbl md" style="font-size:10px;">Servicios (extensión, asistenicia)</div>
+      <div class="ll-trk"><div class="ll-bar tan" style="width:65%"></div><div class="ll-dot tan"></div></div>
+      <div class="ll-val">~65%</div>
+    </div>
+    <div class="ll-row">
+      <div class="ll-lbl md" style="font-size:10px;">Materiales (insumos, semillas)</div>
+      <div class="ll-trk"><div class="ll-bar amber" style="width:35%"></div><div class="ll-dot amber"></div></div>
+      <div class="ll-val">~35%</div>
+    </div>
+
+    <div style="margin-top:10px;font-size:10px;font-weight:600;color:var(--dark);margin-bottom:6px;">Clasificación verde — términos clave:</div>
+    <div class="period-card" style="padding:8px 10px;margin-bottom:0;">
+      <div class="period-desc">144 raíces únicas de términos usadas. Las más frecuentes: <em>forestal / árbol, agua / cuenca, sostenib*, agroecolog*, adaptación, mitigación, silvopastor*, servicios ambientales</em>. Validado con TVC y revisión experta.</div>
+    </div>
+  </div>
+
+  <!-- EVA -->
+  <div class="card">
+    <div class="card-title">Fuente 2: EVA — Evaluaciones Agropecuarias Municipales</div>
+    <div class="card-sub">239 cultivos · 1,122 municipios · 2007–2023 · Panel bianual</div>
+
+    <div style="margin-bottom:12px;">
+      <div style="font-size:14px;font-weight:700;color:var(--brown);margin-bottom:4px;">Tres indicadores de resultado (Y):</div>
+    </div>
+
+    <div class="rmat" style="margin-bottom:8px;border-left:3px solid var(--sage);">
+      <div class="val" style="color:var(--sage);">Producción total</div>
+      <div class="lbl">Valor total de producción agrícola municipal en USD constantes 2012 (90 cultivos = 98.5% del total)</div>
+    </div>
+    <div class="rmat" style="margin-bottom:8px;border-left:3px solid var(--amber);">
+      <div class="val" style="color:var(--amber);">Área cosechada</div>
+      <div class="lbl">Hectáreas cosechadas por municipio — captura escala y expansión/contracción del área agrícola</div>
+    </div>
+    <div class="rmat" style="border-left:3px solid var(--brown);">
+      <div class="val" style="color:var(--brown);">Rendimiento (yield)</div>
+      <div class="lbl">Producción por hectárea cultivada — indicador de eficiencia productiva e indicador central del estudio</div>
+    </div>
+  </div>
+
+  <!-- Metodología DiD -->
+  <div class="card">
+    <div class="card-title">Metodología: Diferencias en Diferencias (DiD)</div>
+    <div class="card-sub">Estimación causal comparando tres grupos de municipios bajo condiciones equivalentes</div>
+
+    <div class="period-card" style="border-left:3px solid var(--sage);margin-bottom:6px;">
+      <div class="period-tag" style="color:var(--sage-dk);">Grupo tratamiento 1</div>
+      <div class="period-title">Municipios con contratos verdes</div>
+      <div class="period-desc">Recibieron al menos un contrato clasificado como apoyo a agricultura verde.</div>
+    </div>
+    <div class="period-card" style="border-left:3px solid var(--amber);margin-bottom:6px;">
+      <div class="period-tag" style="color:var(--amber);">Grupo tratamiento 2</div>
+      <div class="period-title">Municipios con contratos convencionales</div>
+      <div class="period-desc">Recibieron apoyo público agrícola de tipo tradicional/convencional.</div>
+    </div>
+    <div class="period-card" style="border-left:3px solid var(--stone);margin-bottom:8px;">
+      <div class="period-tag" style="color:var(--stone);">Grupo control</div>
+      <div class="period-title">Municipios sin ningún contrato</div>
+      <div class="period-desc">Contrafactual: municipios sin contratos agrícolas en el período de análisis.</div>
+    </div>
+
+    <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">Controles incluidos:</div>
+    <div style="font-size:10px;color:var(--dark);line-height:1.6;">Población rural · Condiciones climáticas (temperatura y precipitación mensual, CRU) · Efectos fijos de municipio y año · Características iniciales de cada municipio</div>
+
+    <div class="note">Se valida el supuesto de tendencias paralelas: los coeficientes pre-tratamiento no son estadísticamente significativos en los análisis dinámicos año-por-año.</div>
+  </div>
+</div>
+
+<!-- SECTION 02: GRÁFICA CENTRAL + RESULTADOS -->
+<div class="sec-label">02 — Hallazgo Central: ¿Verde o Convencional afecta más el rendimiento?</div>
+
+<!-- GRÁFICA DE COEFICIENTES — LEGIBLE PARA NO ECONOMISTAS -->
+<div class="card" style="margin-bottom:18px;">
+  <div class="card-title">Impacto estimado sobre el rendimiento agrícola municipal</div>
+  <div class="card-sub">Cada punto muestra cuánto cambia el rendimiento en municipios que recibieron apoyo verde o convencional, comparado con municipios sin apoyo · Análisis DiD · Corto y largo plazo</div>
+
+  <div style="margin:18px 0 0 0;">
+    <!-- CHART AREA -->
+    <div style="position:relative;padding:0 0 0 200px;">
+      <!-- Zero line label -->
+      <div style="position:absolute;left:200px;top:-18px;right:0;display:flex;justify-content:space-between;font-size:9.5px;color:var(--muted);">
+        <span>← Impacto negativo</span>
+        <span style="position:absolute;left:50%;transform:translateX(-50%);">Sin efecto</span>
+        <span>Impacto positivo →</span>
+      </div>
+
+      <!-- Row: Verde largo plazo -->
+      <div style="display:flex;align-items:center;margin-bottom:20px;position:relative;">
+        <div style="position:absolute;left:-200px;width:190px;text-align:right;padding-right:14px;">
+          <div style="font-size:10.5px;font-weight:600;color:var(--sage-dk);">Verde · Largo plazo</div>
+          <div style="font-size:9px;color:var(--muted);">desde 1er contrato verde</div>
+        </div>
+        <div style="flex:1;position:relative;height:24px;">
+          <!-- Track -->
+          <div style="position:absolute;top:50%;left:0;right:0;height:2px;background:var(--border);transform:translateY(-50%);"></div>
+          <!-- Zero line -->
+          <div style="position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--stone);opacity:0.5;"></div>
+          <!-- CI bar: from 55% to 72% (positive, above zero) -->
+          <div style="position:absolute;top:50%;left:55%;width:17%;height:3px;background:var(--sage);opacity:0.4;transform:translateY(-50%);"></div>
+          <!-- Dot at 63% -->
+          <div style="position:absolute;top:50%;left:63%;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;background:var(--sage-dk);border:2px solid white;box-shadow:0 1px 3px rgba(0,0,0,0.2);"></div>
+          <!-- "Sig." label -->
+          <div style="position:absolute;top:-13px;left:63%;transform:translateX(-50%);font-size:8.5px;font-weight:700;color:var(--sage-dk);">✓ Sig.</div>
+        </div>
+      </div>
+
+      <!-- Row: Verde corto plazo -->
+      <div style="display:flex;align-items:center;margin-bottom:20px;position:relative;">
+        <div style="position:absolute;left:-200px;width:190px;text-align:right;padding-right:14px;">
+          <div style="font-size:10.5px;font-weight:600;color:var(--sage);">Verde · Corto plazo</div>
+          <div style="font-size:9px;color:var(--muted);">últimos 3 años de contratos</div>
+        </div>
+        <div style="flex:1;position:relative;height:24px;">
+          <div style="position:absolute;top:50%;left:0;right:0;height:2px;background:var(--border);transform:translateY(-50%);"></div>
+          <div style="position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--stone);opacity:0.5;"></div>
+          <!-- CI: from 53% to 61% — does NOT cross zero (0.0190***, IC [0.0088, 0.0292]) -->
+          <div style="position:absolute;top:50%;left:53%;width:8%;height:3px;background:var(--sage);opacity:0.4;transform:translateY(-50%);"></div>
+          <!-- Dot at 57% — filled (significant) -->
+          <div style="position:absolute;top:50%;left:57%;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;background:var(--sage);border:2px solid white;box-shadow:0 1px 3px rgba(0,0,0,0.2);"></div>
+          <!-- "Sig." label -->
+          <div style="position:absolute;top:-13px;left:57%;transform:translateX(-50%);font-size:8.5px;font-weight:700;color:var(--sage-dk);">✓ Sig.</div>
+        </div>
+      </div>
+
+      <!-- Separator -->
+      <div style="height:1px;background:var(--border);margin:4px 0 16px 0;"></div>
+
+      <!-- Row: Convencional largo plazo -->
+      <div style="display:flex;align-items:center;margin-bottom:20px;position:relative;">
+        <div style="position:absolute;left:-200px;width:190px;text-align:right;padding-right:14px;">
+          <div style="font-size:10.5px;font-weight:600;color:var(--amber);">Convencional · Largo plazo</div>
+          <div style="font-size:9px;color:var(--muted);">desde 1er contrato convencional</div>
+        </div>
+        <div style="flex:1;position:relative;height:24px;">
+          <div style="position:absolute;top:50%;left:0;right:0;height:2px;background:var(--border);transform:translateY(-50%);"></div>
+          <div style="position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--stone);opacity:0.5;"></div>
+          <!-- CI: from 49% to 60% — CROSSES zero (0.0117 no *, IC [-0.0021, 0.0255]) -->
+          <div style="position:absolute;top:50%;left:49%;width:11%;height:3px;background:var(--amber);opacity:0.3;transform:translateY(-50%);"></div>
+          <!-- Dot at 55% — hollow (not significant) -->
+          <div style="position:absolute;top:50%;left:55%;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;background:white;border:2.5px solid var(--amber);box-shadow:0 1px 3px rgba(0,0,0,0.15);"></div>
+          <div style="position:absolute;top:-13px;left:55%;transform:translateX(-50%);font-size:8.5px;color:var(--muted);white-space:nowrap;">No sig.</div>
+        </div>
+      </div>
+
+      <!-- Row: Convencional corto plazo -->
+      <div style="display:flex;align-items:center;margin-bottom:6px;position:relative;">
+        <div style="position:absolute;left:-200px;width:190px;text-align:right;padding-right:14px;">
+          <div style="font-size:10.5px;font-weight:600;color:var(--tan);">Convencional · Corto plazo</div>
+          <div style="font-size:9px;color:var(--muted);">últimos 3 años de contratos</div>
+        </div>
+        <div style="flex:1;position:relative;height:24px;">
+          <div style="position:absolute;top:50%;left:0;right:0;height:2px;background:var(--border);transform:translateY(-50%);"></div>
+          <div style="position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--stone);opacity:0.5;"></div>
+          <!-- CI: 51% to 61% -->
+          <div style="position:absolute;top:50%;left:51%;width:10%;height:3px;background:var(--tan);opacity:0.35;transform:translateY(-50%);"></div>
+          <!-- Dot at 56% -->
+          <div style="position:absolute;top:50%;left:56%;transform:translate(-50%,-50%);width:14px;height:14px;border-radius:50%;background:var(--tan);border:2px solid white;box-shadow:0 1px 3px rgba(0,0,0,0.2);"></div>
+          <div style="position:absolute;top:-13px;left:56%;transform:translateX(-50%);font-size:8.5px;font-weight:700;color:var(--tan);">✓ Sig.</div>
+        </div>
+      </div>
+
+      <!-- X axis ticks -->
+      <div style="position:relative;height:26px;margin-top:8px;border-top:1px solid var(--border);">
+        <div style="position:absolute;left:10%;transform:translateX(-50%);font-size:8px;color:var(--muted);padding-top:4px;">−0.10</div>
+        <div style="position:absolute;left:30%;transform:translateX(-50%);font-size:8px;color:var(--muted);padding-top:4px;">−0.05</div>
+        <div style="position:absolute;left:50%;transform:translateX(-50%);font-size:8.5px;color:var(--stone);font-weight:700;padding-top:4px;">0</div>
+        <div style="position:absolute;left:70%;transform:translateX(-50%);font-size:8px;color:var(--muted);padding-top:4px;">+0.05</div>
+        <div style="position:absolute;left:90%;transform:translateX(-50%);font-size:8px;color:var(--muted);padding-top:4px;">+0.10</div>
+      </div>
+      <div style="text-align:center;font-size:8px;color:var(--muted);margin-top:2px;font-style:italic;">Coeficiente estimado (cambio en log del rendimiento)</div>
+    </div>
+
+    <!-- LEYENDA -->
+    <div style="display:flex;gap:20px;margin-top:16px;flex-wrap:wrap;align-items:center;border-top:1px solid var(--border);padding-top:12px;">
+      <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--dark);">
+        <div style="width:12px;height:12px;border-radius:50%;background:var(--sage-dk);"></div> Punto lleno = Estadísticamente significativo
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--dark);">
+        <div style="width:12px;height:12px;border-radius:50%;background:white;border:2.5px solid var(--stone);"></div> Punto vacío = No significativo (IC cruza cero)
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--dark);">
+        <div style="width:28px;height:3px;background:var(--stone);opacity:0.4;"></div> Intervalo de confianza al 95%
+      </div>
+    </div>
+
+    <!-- NOTA METODOLÓGICA -->
+    <div style="margin-top:12px;background:var(--sage-lt);border-radius:6px;padding:10px 14px;font-size:10px;color:var(--sage-dk);line-height:1.6;">
+      <strong>📖 Cómo leer esta gráfica:</strong> Cada punto muestra el valor del coeficiente estimado — cuánto cambia el rendimiento (yield) municipal cuando un municipio recibe apoyo verde o convencional, comparado con municipios sin ningún contrato. La línea central vertical es el <em>cero</em> (sin efecto). Puntos a la derecha del cero = impacto positivo en rendimiento. La barra horizontal es el intervalo de confianza al 95%: si <strong>no cruza el cero</strong>, el resultado es estadísticamente significativo (confiable). Si la cruza, no podemos descartar que el efecto sea cero.
+    </div>
+  </div>
+
+  <div class="note amber" style="margin-top:12px;">Hallazgo clave: <strong>los contratos verdes muestran impacto positivo significativo sobre el rendimiento tanto en el corto como en el largo plazo</strong>. Los convencionales solo muestran impacto significativo en el corto plazo. No hay evidencia de que redirigir apoyos hacia lo verde perjudique la productividad.</div>
+</div>
+
+<div class="sec-label" style="margin-top:0;">02b — Resultados Detallados: Margen Extensivo e Intensivo · Largo y Corto Plazo</div>
+<div class="grid-2">
+
+  <!-- Margen extensivo largo plazo -->
+  <div class="card">
+    <div class="card-title">Margen extensivo — largo plazo (Fig. 2.3)</div>
+    <div class="card-sub">Municipios que recibieron al menos un contrato vs. sin contrato · Desde el primer año de recepción</div>
+
+    <div class="cmp-matrix">
+      <div class="cmp-cell cmp-head">Indicador</div>
+      <div class="cmp-cell cmp-head" style="background:var(--sage-lt);color:var(--sage-dk);">Verde</div>
+      <div class="cmp-cell cmp-head" style="background:var(--amber-lt);color:var(--amber);">Convencional</div>
+
+      <div class="cmp-cell">Producción total</div>
+      <div class="cmp-cell" style="background:var(--sage-lt);"><span class="sig-yes">↑ Positivo sig.*</span></div>
+      <div class="cmp-cell" style="background:var(--amber-lt);"><span class="sig-partial">No significativo</span></div>
+
+      <div class="cmp-cell">Área cosechada</div>
+      <div class="cmp-cell" style="background:var(--sage-lt);"><span class="sig-yes">↑ Positivo sig.*</span></div>
+      <div class="cmp-cell" style="background:var(--amber-lt);"><span class="sig-no">↓ Reducción</span></div>
+
+      <div class="cmp-cell">Rendimiento (yield)</div>
+      <div class="cmp-cell" style="background:var(--sage-lt);"><span class="sig-yes">↑ Positivo sig.*</span></div>
+      <div class="cmp-cell" style="background:var(--amber-lt);"><span class="sig-yes">↑ Positivo sig.*</span></div>
+    </div>
+
+    <div class="note">En el largo plazo, los contratos verdes muestran impacto positivo y significativo en los TRES indicadores. Los convencionales suben el rendimiento pero reducen el área, dejando la producción total sin efecto significativo. <strong>Los verdes son más efectivos para el desempeño económico de largo plazo.</strong></div>
+
+    <div style="margin-top:12px;font-size:10.5px;font-weight:600;color:var(--dark);margin-bottom:6px;">Margen intensivo — largo plazo (Fig. 2.4):</div>
+    <div class="cmp-matrix">
+      <div class="cmp-cell cmp-head">Indicador</div>
+      <div class="cmp-cell cmp-head" style="background:var(--sage-lt);color:var(--sage-dk);">Verde</div>
+      <div class="cmp-cell cmp-head" style="background:var(--amber-lt);color:var(--amber);">Convencional</div>
+
+      <div class="cmp-cell">Producción total</div>
+      <div class="cmp-cell" style="background:var(--sage-lt);"><span class="sig-yes">↑ Positivo</span></div>
+      <div class="cmp-cell" style="background:var(--amber-lt);"><span class="sig-yes">↑ Positivo</span></div>
+
+      <div class="cmp-cell">Área cosechada</div>
+      <div class="cmp-cell" style="background:var(--sage-lt);"><span class="sig-yes">↑ Expansión sig.*</span></div>
+      <div class="cmp-cell" style="background:var(--amber-lt);"><span class="sig-no">↓ Contracción</span></div>
+
+      <div class="cmp-cell">Rendimiento</div>
+      <div class="cmp-cell" style="background:var(--sage-lt);"><span class="sig-yes">↑ Positivo sig.*</span></div>
+      <div class="cmp-cell" style="background:var(--amber-lt);"><span class="sig-yes">↑ Positivo sig.*</span></div>
+    </div>
+    <div style="font-size:9.5px;color:var(--muted);margin-top:4px;">Sin diferencias estadísticamente significativas entre verde y convencional en el valor del efecto.</div>
+  </div>
+
+  <!-- Margen corto plazo -->
+  <div class="card">
+    <div class="card-title">Margen extensivo — corto plazo (Fig. 2.5)</div>
+    <div class="card-sub">Municipios con al menos un contrato en los últimos 3 años · Ventana temporal reciente</div>
+
+    <div class="cmp-matrix">
+      <div class="cmp-cell cmp-head">Indicador</div>
+      <div class="cmp-cell cmp-head" style="background:var(--sage-lt);color:var(--sage-dk);">Verde</div>
+      <div class="cmp-cell cmp-head" style="background:var(--amber-lt);color:var(--amber);">Convencional</div>
+
+      <div class="cmp-cell">Producción total</div>
+      <div class="cmp-cell" style="background:var(--sage-lt);"><span class="sig-yes">↑ Positivo</span></div>
+      <div class="cmp-cell" style="background:var(--amber-lt);"><span class="sig-no">↓ Reducción sig.*</span></div>
+
+      <div class="cmp-cell">Área cosechada</div>
+      <div class="cmp-cell" style="background:var(--sage-lt);"><span class="sig-yes">Estable / +</span></div>
+      <div class="cmp-cell" style="background:var(--amber-lt);"><span class="sig-no">↓ Reducción sig.*</span></div>
+
+      <div class="cmp-cell">Rendimiento</div>
+      <div class="cmp-cell" style="background:var(--sage-lt);"><span class="sig-yes">↑ Positivo</span></div>
+      <div class="cmp-cell" style="background:var(--amber-lt);"><span class="sig-yes">↑ Positivo</span></div>
+    </div>
+
+    <div class="note amber">No hay evidencia de que los contratos verdes sean menos efectivos que los convencionales en el corto plazo. Además, el apoyo convencional se asocia con una reducción significativa del área cosechada — una señal de intensificación a costa de escala.</div>
+
+    <div style="margin-top:12px;font-size:10.5px;font-weight:600;color:var(--dark);margin-bottom:6px;">Margen intensivo — corto plazo (Fig. 2.6):</div>
+    <div class="cmp-matrix">
+      <div class="cmp-cell cmp-head">Indicador</div>
+      <div class="cmp-cell cmp-head" style="background:var(--sage-lt);color:var(--sage-dk);">Verde</div>
+      <div class="cmp-cell cmp-head" style="background:var(--amber-lt);color:var(--amber);">Convencional</div>
+
+      <div class="cmp-cell">Rendimiento</div>
+      <div class="cmp-cell" style="background:var(--sage-lt);"><span class="sig-partial">Estimación menor</span></div>
+      <div class="cmp-cell" style="background:var(--amber-lt);"><span class="sig-partial">Estimación mayor</span></div>
+
+      <div class="cmp-cell">¿Diferencia sig.?</div>
+      <div class="cmp-cell" style="background:var(--sage-lt);background:var(--sage-lt);" colspan="2"><span class="sig-no">No — sin significancia estadística</span></div>
+      <div class="cmp-cell" style="background:var(--amber-lt);"><span class="sig-no">No significativa</span></div>
+    </div>
+    <div style="font-size:9.5px;color:var(--muted);margin-top:4px;">Si bien el punto estimado es algo mayor para convencional, la diferencia no es estadísticamente significativa. No hay evidencia de bajo rendimiento verde.</div>
+
+    <div class="note coral" style="margin-top:10px;">Los resultados dinámicos año-a-año (Figs. 2.7 y 2.8) confirman la validez del método DiD: los coeficientes pre-tratamiento no son significativos. Los contratos verdes generan beneficios inmediatos en yield, acumulándose con el tiempo.</div>
+  </div>
+</div>
+
+<!-- SECTION 03: RESULTADOS HETEROGÉNEOS -->
+<div class="sec-label">03 — Resultados Heterogéneos: Desempeño por Tipo de Contrato</div>
+<div class="grid-2e">
+
+  <!-- Servicios -->
+  <div class="card">
+    <div class="card-title">Contratos de servicios (extensión rural, asistencia técnica)</div>
+    <div class="card-sub">Largo plazo — Fig. 2.9 y 2.10 · Panel izquierdo</div>
+
+    <div style="display:flex;gap:14px;margin-bottom:14px;">
+      <div style="flex:1;text-align:center;background:var(--sage-lt);border-radius:8px;padding:12px 8px;">
+        <div style="font-size:10px;font-weight:700;color:var(--sage-dk);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Servicios verdes</div>
+        <div class="ll-row" style="margin-bottom:4px;">
+          <div class="ll-lbl sm" style="font-size:9.5px;width:80px;">Área cosechada</div>
+          <div class="ll-trk"><div class="ll-bar" style="width:70%"></div><div class="ll-dot"></div></div>
+          <div class="ll-val" style="font-size:9px;">↑ Sig.</div>
+        </div>
+        <div class="ll-row">
+          <div class="ll-lbl sm" style="font-size:9.5px;width:80px;">Rendimiento</div>
+          <div class="ll-trk"><div class="ll-bar stone" style="width:10%"></div><div class="ll-dot stone"></div></div>
+          <div class="ll-val" style="font-size:9px;color:var(--coral);">No sig.</div>
+        </div>
+      </div>
+      <div style="flex:1;text-align:center;background:var(--amber-lt);border-radius:8px;padding:12px 8px;">
+        <div style="font-size:10px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Servicios convencionales</div>
+        <div class="ll-row" style="margin-bottom:4px;">
+          <div class="ll-lbl sm" style="font-size:9.5px;width:80px;">Área cosechada</div>
+          <div class="ll-trk"><div class="ll-bar stone" style="width:10%"></div><div class="ll-dot stone"></div></div>
+          <div class="ll-val" style="font-size:9px;color:var(--coral);">No sig.</div>
+        </div>
+        <div class="ll-row">
+          <div class="ll-lbl sm" style="font-size:9.5px;width:80px;">Rendimiento</div>
+          <div class="ll-trk"><div class="ll-bar amber" style="width:80%"></div><div class="ll-dot amber"></div></div>
+          <div class="ll-val" style="font-size:9px;">↑ Sig.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note coral">Los contratos verdes de extensión amplían el área pero no muestran impacto significativo en el rendimiento. Este resultado refleja limitaciones en cómo están diseñados actualmente los servicios de extensión — orientados a la agricultura convencional — y no permite concluir que los materiales sean un instrumento superior: no contamos con información suficiente para esa comparación.</div>
+
+    <div style="margin-top:12px;font-size:10.5px;font-weight:600;color:var(--dark);margin-bottom:6px;">Posibles explicaciones:</div>
+    <div class="period-card" style="padding:8px 10px;margin-bottom:6px;">
+      <div class="period-tag" style="color:var(--coral);">Razón 1</div>
+      <div class="period-desc">Los beneficios de NbS en extensión verde vienen de reducción de costos de insumos, no de aumento de yield — un beneficio real pero no capturado por el indicador de rendimiento.</div>
+    </div>
+    <div class="period-card" style="padding:8px 10px;margin-bottom:6px;">
+      <div class="period-tag" style="color:var(--amber);">Razón 2</div>
+      <div class="period-desc">Los extensionistas están capacitados principalmente en agricultura convencional — se necesita un cambio de paradigma en la formación para extensión verde efectiva.</div>
+    </div>
+    <div class="period-card" style="padding:8px 10px;margin-bottom:0;">
+      <div class="period-tag" style="color:var(--stone);">Razón 3</div>
+      <div class="period-desc">Las fricciones en la adopción de nuevas prácticas requieren más tiempo para materializarse en rendimiento, mientras que los insumos directos generan resultados inmediatos.</div>
+    </div>
+  </div>
+
+  <!-- Materiales -->
+  <div class="card">
+    <div class="card-title">Contratos de insumos materiales (semillas, insumos verdes)</div>
+    <div class="card-sub">Largo plazo — Fig. 2.9 y 2.10 · Panel derecho</div>
+
+    <div style="display:flex;gap:14px;margin-bottom:14px;">
+      <div style="flex:1;text-align:center;background:var(--sage-lt);border-radius:8px;padding:12px 8px;">
+        <div style="font-size:10px;font-weight:700;color:var(--sage-dk);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Materiales verdes</div>
+        <div class="ll-row" style="margin-bottom:4px;">
+          <div class="ll-lbl sm" style="font-size:9.5px;width:80px;">Producción</div>
+          <div class="ll-trk"><div class="ll-bar" style="width:90%"></div><div class="ll-dot"></div></div>
+          <div class="ll-val" style="font-size:9px;">↑ Sig.</div>
+        </div>
+        <div class="ll-row" style="margin-bottom:4px;">
+          <div class="ll-lbl sm" style="font-size:9.5px;width:80px;">Área cosechada</div>
+          <div class="ll-trk"><div class="ll-bar" style="width:80%"></div><div class="ll-dot"></div></div>
+          <div class="ll-val" style="font-size:9px;">↑ Sig.</div>
+        </div>
+        <div class="ll-row">
+          <div class="ll-lbl sm" style="font-size:9.5px;width:80px;">Rendimiento</div>
+          <div class="ll-trk"><div class="ll-bar" style="width:85%"></div><div class="ll-dot"></div></div>
+          <div class="ll-val" style="font-size:9px;">↑ Sig.</div>
+        </div>
+      </div>
+      <div style="flex:1;text-align:center;background:var(--amber-lt);border-radius:8px;padding:12px 8px;">
+        <div style="font-size:10px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Materiales convencionales</div>
+        <div class="ll-row" style="margin-bottom:4px;">
+          <div class="ll-lbl sm" style="font-size:9.5px;width:80px;">Producción</div>
+          <div class="ll-trk"><div class="ll-bar stone" style="width:20%"></div><div class="ll-dot stone"></div></div>
+          <div class="ll-val" style="font-size:9px;color:var(--coral);">No sig.</div>
+        </div>
+        <div class="ll-row" style="margin-bottom:4px;">
+          <div class="ll-lbl sm" style="font-size:9.5px;width:80px;">Área cosechada</div>
+          <div class="ll-trk"><div class="ll-bar coral" style="width:30%"></div><div class="ll-dot coral"></div></div>
+          <div class="ll-val" style="font-size:9px;color:var(--coral);">↓ Reduce</div>
+        </div>
+        <div class="ll-row">
+          <div class="ll-lbl sm" style="font-size:9.5px;width:80px;">Rendimiento</div>
+          <div class="ll-trk"><div class="ll-bar amber" style="width:70%"></div><div class="ll-dot amber"></div></div>
+          <div class="ll-val" style="font-size:9px;">↑ Sig.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">Los insumos materiales verdes muestran resultados consistentes: aumentan simultáneamente producción, área y rendimiento, a diferencia de los materiales convencionales que intensifican sin expandir área.</div>
+
+    <div style="margin-top:12px;font-size:10.5px;font-weight:600;color:var(--dark);margin-bottom:6px;">Patrón en el corto plazo — materiales (Fig. 2.11):</div>
+    <div class="period-card" style="padding:8px 10px;margin-bottom:6px;">
+      <div class="period-tag" style="color:var(--amber);">Corto plazo</div>
+      <div class="period-desc">Los proyectos convencionales muestran mayor efecto en el corto plazo que los verdes. El efecto acumulativo de los contratos verdes solo aparece cuando se suma el valor de contratos durante periodos más largos — no en los últimos 3 años.</div>
+    </div>
+    <div class="period-card" style="padding:8px 10px;margin-bottom:0;">
+      <div class="period-tag" style="color:var(--sage-dk);">Largo plazo</div>
+      <div class="period-desc">La acumulación del efecto verde en el tiempo es fundamental para evidenciar sus beneficios plenos: mejora de suelo, biodiversidad, resiliencia climática y productividad progresiva toman varios años en madurar.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 04: SÍNTESIS Y MECANISMOS -->
+<div class="sec-label">04 — Síntesis: Mecanismos, Hallazgos y Recomendaciones de Política</div>
+<div class="grid-3">
+
+  <!-- Mecanismos -->
+  <div class="card">
+    <div class="card-title">¿Por qué los efectos del apoyo verde son progresivos?</div>
+    <div class="card-sub">Tres razones que explican la maduración gradual del impacto verde</div>
+
+    <div class="period-card" style="border-left:3px solid var(--sage);margin-bottom:8px;">
+      <div class="period-tag" style="color:var(--sage-dk);">Razón 1 — Curva de aprendizaje</div>
+      <div class="period-title">Adopción de nuevas prácticas requiere adaptación</div>
+      <div class="period-desc">Los cambios de práctica productiva requieren un período de ajuste antes de generar retornos comparables. El conocimiento se acumula con el tiempo.</div>
+    </div>
+
+    <div class="period-card" style="border-left:3px solid var(--amber);margin-bottom:8px;">
+      <div class="period-tag" style="color:var(--amber);">Razón 2 — Horizonte de los cultivos forestales</div>
+      <div class="period-title">Forestería y árboles = términos más frecuentes en contratos verdes</div>
+      <div class="period-desc">Cultivos y especies forestales requieren varios años antes de generar resultados productivos medibles — período de maduración inherente al sistema.</div>
+    </div>
+
+    <div class="period-card" style="border-left:3px solid var(--brown);margin-bottom:8px;">
+      <div class="period-tag" style="color:var(--brown);">Razón 3 — Cadena de efectos ambientales</div>
+      <div class="period-title">Mejora de suelos → fertilidad → rendimiento (proceso gradual)</div>
+      <div class="period-desc">Mejorar la fertilidad del suelo mediante NbS puede tomar varios años en traducirse en aumentos de rendimiento, a diferencia de los fertilizantes sintéticos que actúan de forma inmediata.</div>
+    </div>
+
+    <div class="note amber">Esto NO significa que el apoyo verde sea inferior — sino que su evaluación exige horizontes de tiempo más largos, consistentes con la naturaleza de los sistemas agroecológicos y silvícolas que financia.</div>
+  </div>
+
+  <!-- Resumen central -->
+  <div class="card">
+    <div class="card-title">Respuesta a la pregunta central del estudio</div>
+    <div class="card-sub">"¿El apoyo público verde sacrifica rendimientos o producción versus el apoyo convencional?"</div>
+
+    <div style="text-align:center;padding:20px 16px;background:var(--sage-lt);border-radius:8px;margin-bottom:14px;">
+      <div style="font-size:14px;font-weight:700;color:var(--sage-dk);line-height:1.4;">No existe evidencia estadística<br>de que los contratos verdes<br>tengan MENOR desempeño</div>
+      <div style="font-size:10.5px;color:var(--muted);margin-top:8px;">que los convencionales en ningún<br>horizonte temporal analizado.</div>
+    </div>
+
+    <div style="font-size:10.5px;font-weight:600;color:var(--dark);margin-bottom:8px;">Resumen de la dirección de los efectos:</div>
+
+    <div class="ll-row">
+      <div class="ll-lbl md" style="font-size:10px;">Verde: rendimiento L. plazo</div>
+      <div class="ll-trk"><div class="ll-bar" style="width:90%"></div><div class="ll-dot"></div></div>
+      <div class="ll-val">≥ Conv.</div>
+    </div>
+    <div class="ll-row">
+      <div class="ll-lbl md" style="font-size:10px;">Verde: área cosechada L.P.</div>
+      <div class="ll-trk"><div class="ll-bar" style="width:100%"></div><div class="ll-dot"></div></div>
+      <div class="ll-val">↑ Sig.</div>
+    </div>
+    <div class="ll-row">
+      <div class="ll-lbl md" style="font-size:10px;">Convencional: área L.P.</div>
+      <div class="ll-trk"><div class="ll-bar coral" style="width:40%"></div><div class="ll-dot coral"></div></div>
+      <div class="ll-val">↓ Reduce</div>
+    </div>
+    <div class="ll-row">
+      <div class="ll-lbl md" style="font-size:10px;">Verde: producción total L.P.</div>
+      <div class="ll-trk"><div class="ll-bar" style="width:85%"></div><div class="ll-dot"></div></div>
+      <div class="ll-val">↑ Sig.</div>
+    </div>
+    <div class="ll-row">
+      <div class="ll-lbl md" style="font-size:10px;">Convencional: producción L.P.</div>
+      <div class="ll-trk"><div class="ll-bar stone" style="width:15%"></div><div class="ll-dot stone"></div></div>
+      <div class="ll-val">No sig.</div>
+    </div>
+
+    <div class="note" style="margin-top:10px;">En el largo plazo, el apoyo verde produce mayores ganancias en producción total y área cosechada, disipando la preocupación por trade-offs productivos en la transición.</div>
+  </div>
+
+  <!-- Recomendaciones -->
+  <div class="card">
+    <div class="card-title">Opciones de política pública</div>
+    <div class="card-sub">Derivadas directamente de los hallazgos del Analytical Study · No representan posición institucional oficial</div>
+
+    <div class="period-card" style="border-left:3px solid var(--sage-dk);margin-bottom:6px;">
+      <div class="period-tag" style="color:var(--sage-dk);">Horizonte temporal</div>
+      <div class="period-title">Planificación plurianual y presupuestación por resultados</div>
+      <div class="period-desc">Fijar metas de productividad y resiliencia a 3–7 años. Evaluar programas verdes evitando juicios basados solo en 1–2 años, coherente con los tiempos de maduración de las inversiones en agroecología y NbS.</div>
+    </div>
+
+    <div class="period-card" style="border-left:3px solid var(--amber);margin-bottom:6px;">
+      <div class="period-tag" style="color:var(--amber);">Paquetes de adopción</div>
+      <div class="period-title">Combinar insumos verdes con extensión rediseñada para la agroecología</div>
+      <div class="period-desc">Articular inversiones en insumos sostenibles con servicios de extensión reorientados hacia NbS — con contenidos, capacidades y métricas agroecológicas — para acortar curvas de aprendizaje y acelerar impactos en rendimiento.</div>
+    </div>
+
+    <div class="period-card" style="border-left:3px solid var(--tan);margin-bottom:6px;">
+      <div class="period-tag" style="color:var(--tan);">Gestión territorial</div>
+      <div class="period-title">Alinear el SGR con objetivos de transición agroecológica</div>
+      <div class="period-desc">Alinear el Sistema General de Regalías con PIGCCT/PIGCC sectoriales y ejes ecosistémicos regionales. Estandarizar criterios de aprobación que incorporen objetivos de transición, asegurando diversidad de proyectos y regiones incluidas.</div>
+    </div>
+
+    <div class="period-card" style="border-left:3px solid var(--coral);margin-bottom:6px;">
+      <div class="period-tag" style="color:var(--coral);">Monitoreo territorial</div>
+      <div class="period-title">Priorizar proyectos con bajo riesgo de expansión de frontera agrícola</div>
+      <div class="period-desc">Establecer seguimiento del cambio de uso del suelo asociado a los proyectos verdes y sus consecuencias climáticas y ecosistémicas. Priorizar proyectos que no impliquen presión sobre ecosistemas naturales.</div>
+    </div>
+
+    <div class="period-card" style="border-left:3px solid var(--brown);margin-bottom:6px;">
+      <div class="period-tag" style="color:var(--brown);">Escalamiento</div>
+      <div class="period-title">Institucionalizar programas exitosos y diversificar fuentes de financiamiento</div>
+      <div class="period-desc">Institucionalizar programas con impacto comprobado (silvopastoreo, PSA) y combinar recursos públicos, privados y de cooperación — bonos y vehículos verdes, pago por resultados — para ampliar escala y continuidad.</div>
+    </div>
+
+    <div class="period-card" style="border-left:3px solid var(--stone);margin-bottom:6px;">
+      <div class="period-tag" style="color:var(--stone);">MRV y trazabilidad</div>
+      <div class="period-title">Fortalecer la trazabilidad de proyectos agro-SbN dentro del MRV/TVC</div>
+      <div class="period-desc">Cerrar brechas de información para vincular desembolsos con resultados ambientales y productivos en territorio. Mejorar la trazabilidad de proyectos agro-SbN dentro de la Taxonomía Verde de Colombia y el sistema MRV nacional.</div>
+    </div>
+
+    <div class="note amber">Esta es la primera evaluación causal del impacto de la política pública verde vs. convencional sobre rendimientos agrícolas en Colombia. Sus resultados proveen la evidencia empírica necesaria para acelerar la transición con base sólida.</div>
+  </div>
+</div>
+
+<!-- NOTA PRÓXIMAMENTE -->
+<div style="background:var(--sage-lt);border:1px solid var(--border);border-radius:8px;padding:14px 20px;margin-bottom:14px;display:flex;align-items:center;gap:12px;">
+  <span style="font-size:18px;">📄</span>
+  <span style="font-size:12px;color:var(--brown);">
+    Próximamente encontrará el informe completo disponible en este
+    <a href="#" style="color:var(--sage-dk);font-weight:600;text-decoration:underline;">enlace</a>.
+  </span>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>Sección 2 — Analytical Study: Promoting a Transition to Sustainable Support for Agriculture in Colombia · DNP-MRV 2011–2023 · IDEAM · Taxonomía Verde de Colombia (TVC, 2022) · Elaborado por Universidad de los Andes con la financiación de UNEP</div>
+  <div>Fuentes: SECOP (contratos) · EVA-MADR (rendimiento agrícola) · CRU-UEA (clima) · 2007–2023 · Diferencias en Diferencias (DiD) · 48,072 contratos · 1,083 municipios · Procesamiento propio</div>
+</footer>
+
+</div>
+</body>
+</html>

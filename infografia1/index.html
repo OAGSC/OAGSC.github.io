@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sección 1 — Financiamiento Verde para Agricultura Sostenible en Colombia (v2 · con mapas)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+
+  :root {
+    --cream:    #f8f4ec;
+    --white:    #fdfaf5;
+    --dark:     #2e1f0f;
+    --brown:    #71502f;
+    --amber:    #fdc57e;
+    --amber-lt: #fef0d8;
+    --sage:     #a7d4e4;
+    --sage-lt:  #d8eef5;
+    --sage-dk:  #4a7d94;
+    --coral:    #c47854;
+    --coral-lt: #fce8d8;
+    --stone:    #9e9284;
+    --muted:    #8a7e74;
+    --border:   #c5dde7;
+    --tan:      #71502f;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--dark);
+    width: 1280px;
+    margin: 0 auto;
+    min-height: 900px;
+    padding: 36px 40px 28px;
+  }
+
+  .top-bar { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+  .badge-inf { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--sage-dk); text-transform: uppercase; }
+  .source-badge { background: var(--dark); color: #fff; font-size: 10px; padding: 4px 10px; border-radius: 3px; font-weight: 500; letter-spacing: 0.5px; white-space: nowrap; }
+  h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 28px; font-weight: 700; color: var(--dark); line-height: 1.2; margin-bottom: 4px; }
+  .subtitle { font-size: 12.5px; color: var(--muted); font-weight: 400; margin-bottom: 16px; }
+  .divider { border: none; border-top: 1px solid var(--border); margin-bottom: 20px; }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 20px; }
+  .kpi { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .kpi .num { font-size: 26px; font-weight: 700; color: var(--sage); letter-spacing: -1px; line-height: 1; }
+  .kpi .num.amber { color: var(--amber); }
+  .kpi .num.coral { color: var(--coral); }
+  .kpi .num.brown { color: var(--brown); }
+  .kpi .lbl  { font-size: 10.5px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+  .kpi .tag  { font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--sage-dk); margin-bottom: 3px; }
+
+  .grid-4  { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 18px; }
+  .grid-3  { display: grid; grid-template-columns: 1.1fr 1fr 0.9fr; gap: 14px; margin-bottom: 18px; }
+  .grid-3b { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+  .grid-2  { display: grid; grid-template-columns: 1.2fr 1fr; gap: 14px; margin-bottom: 18px; }
+  .grid-2e { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+  .span2   { grid-column: span 2; }
+
+  .card { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; }
+  .card-title { font-size: 10.5px; font-weight: 700; color: var(--brown); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+  .card-sub   { font-size: 10px; color: var(--muted); margin-bottom: 12px; line-height: 1.4; }
+
+  .ll-row  { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; }
+  .ll-lbl  { font-size: 10.5px; color: var(--dark); width: 160px; flex-shrink: 0; line-height: 1.3; }
+  .ll-lbl.sm { width: 100px; }
+  .ll-lbl.md { width: 130px; }
+  .ll-lbl.lg { width: 200px; }
+  .ll-trk  { flex: 1; height: 3px; background: var(--border); border-radius: 2px; position: relative; }
+  .ll-bar  { height: 100%; border-radius: 2px; background: var(--sage); }
+  .ll-bar.amber { background: var(--amber); }
+  .ll-bar.coral { background: var(--coral); }
+  .ll-bar.brown { background: var(--brown); }
+  .ll-bar.tan   { background: var(--tan); }
+  .ll-bar.stone { background: var(--stone); }
+  .ll-dot  { position: absolute; right:-5px; top:50%; transform:translateY(-50%); width:9px; height:9px; border-radius:50%; background:var(--sage); }
+  .ll-dot.amber { background:var(--amber); }
+  .ll-dot.coral { background:var(--coral); }
+  .ll-dot.brown { background:var(--brown); }
+  .ll-dot.tan   { background:var(--tan); }
+  .ll-dot.stone { background:var(--stone); }
+  .ll-val  { font-size: 10.5px; font-weight: 600; color: var(--muted); width: 48px; text-align: right; }
+
+  .stk-bar { display: flex; height: 20px; border-radius: 3px; overflow: hidden; margin: 6px 0; gap: 1px; }
+  .stk-seg { display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: white; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+  .lg-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--muted); }
+  .lg-dot  { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+
+  .note { background: var(--sage-lt); border-left: 3px solid var(--sage); padding: 9px 12px; border-radius: 0 6px 6px 0; font-size: 10.5px; color: #2e1f0f; line-height: 1.5; margin-top: 10px; }
+  .note.amber { background: var(--amber-lt); border-left-color: var(--amber); color: #71502f; }
+  .note.coral { background: var(--coral-lt); border-left-color: var(--coral); color: #71502f; }
+
+  .sec-label {
+    font-size: 9.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--stone); margin-bottom: 10px; padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .yr-bar { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+  .yr-lbl { font-size: 10px; color: var(--muted); width: 70px; flex-shrink: 0; }
+  .yr-fill { height: 14px; border-radius: 2px; background: var(--sage); min-width: 4px; }
+  .yr-val  { font-size: 10px; color: var(--dark); font-weight: 500; }
+
+  .period-card { padding: 10px 12px; border-radius: 6px; border: 1px solid var(--border); background: var(--white); margin-bottom: 8px; }
+  .period-tag { font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px; }
+  .period-title { font-size: 10.5px; font-weight: 600; color: var(--dark); margin-bottom: 3px; }
+  .period-desc { font-size: 9.5px; color: var(--muted); line-height: 1.45; }
+
+  .spat-card { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; background: var(--white); border: 1px solid var(--border); border-radius: 6px; margin-bottom: 8px; }
+  .spat-icon { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+  .spat-text { flex: 1; }
+  .spat-lbl { font-size: 10px; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
+  .spat-desc { font-size: 9.5px; color: var(--muted); line-height: 1.4; }
+
+  .arc-wrap { text-align: center; }
+  .arc-wrap .arc-num { font-size: 24px; font-weight: 700; margin-top: 4px; }
+  .arc-wrap .arc-lbl { font-size: 10px; color: var(--muted); }
+
+  /* MAP STYLES */
+  .map-container { position: relative; width: 100%; }
+  .map-container img { width: 100%; height: auto; display: block; border-radius: 4px; }
+  .map-legend { display: flex; flex-direction: column; gap: 5px; margin-top: 10px; }
+  .map-leg-row { display: flex; align-items: center; gap: 7px; font-size: 9.5px; color: var(--dark); }
+  .map-leg-swatch { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
+
+  footer { border-top: 1px solid var(--border); padding-top: 12px; display: flex; justify-content: space-between; font-size: 9.5px; color: var(--muted); margin-top: 8px; }
+</style>
+<script>
+(function(){
+  var W = 1280;
+  function fit(){
+    var s = Math.min(1, window.innerWidth / W);
+    document.body.style.zoom = s;
+  }
+  window.addEventListener('load', fit);
+  window.addEventListener('resize', fit);
+})();
+</script></head>
+<body><nav style="position:sticky;top:0;z-index:1000;background:#2e1f0f;padding:14px 32px;display:flex;align-items:center;gap:20px;border-bottom:3px solid #fdc57e;box-sizing:border-box;">
+  <a href="../" style="text-decoration:none;color:#fdc57e;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.5px;white-space:nowrap;">← Inicio</a>
+  <span style="color:#f8f4ec;font-family:'Inter',sans-serif;font-size:12px;opacity:0.6;letter-spacing:0.3px;">Observatorio de Agricultura y Ganadería Sostenibles en Colombia</span>
+</nav>
+<div style="overflow-x:auto;padding-top:32px;">
+
+<!-- HEADER -->
+<div class="top-bar">
+  <div>
+    <div class="badge-inf">Infografía · Sección 1 · v2 con Mapas · Analytical Study — Financiamiento Verde para Agricultura</div>
+    <h1>Financiamiento Público Verde para Agricultura Sostenible en Colombia (2011–2023)</h1>
+    <p class="subtitle">Trayectoria, distribución territorial y alineación con presiones ambientales de la inversión pública verde en el sector agropecuario · Base: MRV-DNP, Taxonomía Verde (TVC) · Precios constantes 2015</p>
+  </div>
+  <div class="source-badge">Fuente: DNP-MRV · TVC · IDEAM | Analytical Study Final</div>
+</div>
+<hr class="divider">
+
+<!-- KPI ROW -->
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="tag">Participación verde 2011</div>
+    <div class="num coral">1.81%</div>
+    <div class="lbl">del presupuesto agrícola público era inversión verde al inicio del período</div>
+  </div>
+  <div class="kpi">
+    <div class="tag">Participación verde 2023</div>
+    <div class="num amber">2.37%</div>
+    <div class="lbl">del presupuesto agrícola clasificado como verde al final del período — mejora marginal</div>
+  </div>
+  <div class="kpi">
+    <div class="tag">Crecimiento absoluto</div>
+    <div class="num">+120 %</div>
+    <div class="lbl">COP 91 mil M (2011) → COP 200 mil M (2022–23) en precios constantes 2015</div>
+  </div>
+  <div class="kpi">
+    <div class="tag">Cobertura territorial</div>
+    <div class="num">450</div>
+    <div class="lbl">municipios con inversión verde agrícola en 2023 — de cero en 2011 · solo 42% del país</div>
+  </div>
+  <div class="kpi">
+    <div class="tag">Concentración top 10</div>
+    <div class="num brown">58 %</div>
+    <div class="lbl">de la inversión verde agrícola total se concentra en apenas 10 departamentos</div>
+  </div>
+</div>
+
+<!-- SECTION 01: MARCO INSTITUCIONAL -->
+<div class="sec-label">01 — Marco Institucional y Normativo para la Agricultura Sostenible</div>
+<div class="grid-2e">
+  <div class="card">
+    <div class="card-title">Compromisos internacionales y normas de la capa upstream</div>
+    <div class="card-sub">Instrumentos de nivel superior que vinculan al país con objetivos climáticos y de biodiversidad</div>
+    <div class="period-card">
+      <div class="period-tag" style="color:var(--sage-dk);">Marco climático</div>
+      <div class="period-title">Ley 1931/2018 + Ley 2169/2021 — Política Nacional de Cambio Climático</div>
+      <div class="period-desc">Mandato vinculante de mainstreaming climático en todos los sectores, incluyendo agricultura. Marco para NDCs (-51% al 2030) y carbono neutralidad 2050.</div>
+    </div>
+    <div class="period-card">
+      <div class="period-tag" style="color:var(--amber);">CONPES clave</div>
+      <div class="period-title">CONPES 3934/2018 — Política de Crecimiento Verde · CONPES 4088 — Desarrollo Bajo en Carbono</div>
+      <div class="period-desc">Dirección estratégica para agricultura sostenible, bioeconomía y eficiencia en el uso de recursos. Incorpora agricultura climáticamente inteligente.</div>
+    </div>
+    <div class="period-card">
+      <div class="period-tag" style="color:var(--brown);">Instrumentos de planificación</div>
+      <div class="period-title">SISCLIMA — PNACC · Planes sectoriales de mitigación · Planes climáticos subnacionales</div>
+      <div class="period-desc">Sistema que opera los compromisos nacionales y los traduce a nivel sectorial y territorial mediante planes concretos de acción.</div>
+    </div>
+    <div class="note">Colombia ha construido una arquitectura institucional de dos capas: upstream (compromisos) y downstream (implementación), pero la brecha entre ambas persiste.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Instrumentos de la capa downstream — implementación sectorial</div>
+    <div class="card-sub">Políticas sectoriales que operacionalizan la transición sostenible en agricultura</div>
+    <div class="period-card">
+      <div class="period-tag" style="color:var(--coral);">Agroecología</div>
+      <div class="period-title">Resolución 331/2024 — Política Pública de Agroecología</div>
+      <div class="period-desc">Ruta normativa para reducir dependencia de insumos externos, fortalecer resiliencia y generar co-beneficios sociales rurales.</div>
+    </div>
+    <div class="period-card">
+      <div class="period-tag" style="color:var(--sage-dk);">Ganadería sostenible</div>
+      <div class="period-title">Resolución 126/2022 — Política de Ganadería Bovina Sostenible 2022–2050</div>
+      <div class="period-desc">Conversión hacia silvopastoreo, restauración de pasturas y eficiencia hídrica con subsidios y asistencia técnica diferenciada.</div>
+    </div>
+    <div class="period-card">
+      <div class="period-tag" style="color:var(--tan);">PSA y biodiversidad</div>
+      <div class="period-title">CONPES 3886/2017 — PSA · CONPES 4050/2021 — Áreas Protegidas · Plan Biodiversidad 2030</div>
+      <div class="period-desc">Esquemas de financiamiento basados en resultados que reorientan subsidios hacia conservación y producción compatible con ecosistemas.</div>
+    </div>
+    <div class="note amber">Dos instrumentos clave de clasificación y medición: la Taxonomía Verde de Colombia (TVC, 2022) y el Sistema MRV, dentro de SISCLIMA, que clasifica los flujos de inversión del gobierno.</div>
+  </div>
+</div>
+
+<!-- SECTION 02: TRAYECTORIA DE LA INVERSIÓN -->
+<div class="sec-label">02 — Trayectoria de la Inversión Verde Agrícola (2011–2023)</div>
+<div class="grid-3b">
+  <div class="card">
+    <div class="card-title">Evolución por período de gobierno</div>
+    <div class="card-sub">Inversión verde agrícola promedio anual · COP miles de millones · precios constantes 2015</div>
+    <div class="yr-bar">
+      <div class="yr-lbl">2011–2013</div>
+      <div class="yr-fill" style="width:45.5%;background:var(--stone);"></div>
+      <div class="yr-val">~91 mil M</div>
+    </div>
+    <div class="yr-bar">
+      <div class="yr-lbl">2014–2017</div>
+      <div class="yr-fill" style="width:60%;background:var(--sage);"></div>
+      <div class="yr-val">Pico total</div>
+    </div>
+    <div class="yr-bar">
+      <div class="yr-lbl">2018–2021</div>
+      <div class="yr-fill" style="width:40%;background:var(--coral);"></div>
+      <div class="yr-val">Estancamiento</div>
+    </div>
+    <div class="yr-bar">
+      <div class="yr-lbl">2022–2023</div>
+      <div class="yr-fill" style="width:100%;background:var(--sage-dk);"></div>
+      <div class="yr-val">~200 mil M</div>
+    </div>
+    <div style="margin-top:12px;display:flex;gap:10px;">
+      <div style="flex:1;text-align:center;background:var(--sage-lt);border-radius:6px;padding:10px 6px;">
+        <div style="font-size:22px;font-weight:700;color:var(--sage-dk);letter-spacing:-1px;">+120%</div>
+        <div style="font-size:9.5px;color:var(--muted);">crecimiento absoluto<br>en el período</div>
+      </div>
+      <div style="flex:1;text-align:center;background:var(--coral-lt);border-radius:6px;padding:10px 6px;">
+        <div style="font-size:22px;font-weight:700;color:var(--coral);letter-spacing:-1px;">+0.56 pp</div>
+        <div style="font-size:9.5px;color:var(--muted);">variación en participación<br>1.81% → 2.37%</div>
+      </div>
+    </div>
+    <div class="note coral" style="margin-top:10px;">A pesar del fuerte crecimiento absoluto, la participación de la inversión verde sigue siendo apenas el 2.37% del total agrícola — estructuralmente marginal.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Cuatro fases de la narrativa de inversión</div>
+    <div class="card-sub">Transformación de los enfoques y prioridades de gasto verde 2011–2023</div>
+    <div class="period-card" style="border-left:3px solid var(--stone);">
+      <div class="period-tag" style="color:var(--stone);">2010–2014</div>
+      <div class="period-title">Adaptación y seguridad alimentaria</div>
+      <div class="period-desc">Respuesta a La Niña, énfasis en riego, drenaje, pilotos de agricultura sostenible. SGR en Caquetá, Casanare y Risaralda representa ~25% de inversión verde.</div>
+    </div>
+    <div class="period-card" style="border-left:3px solid var(--sage);">
+      <div class="period-tag" style="color:var(--sage-dk);">2014–2018</div>
+      <div class="period-title">Crecimiento verde — Acuerdo de París</div>
+      <div class="period-desc">Agenda climática institucionalizada. MADR gestiona 50% de proyectos con co-objetivos de mitigación y adaptación. CSA y ganadería sostenible como prioridades. Pico de inversión total.</div>
+    </div>
+    <div class="period-card" style="border-left:3px solid var(--coral);">
+      <div class="period-tag" style="color:var(--coral);">2018–2022</div>
+      <div class="period-title">Consolidación + restricciones COVID</div>
+      <div class="period-desc">Estancamiento e incluso caída de la inversión verde. Bonos verdes soberanos y TVC como instrumentos de señalización. Expansión de PSA y Visión Amazonía (~USD 100M).</div>
+    </div>
+    <div class="period-card" style="border-left:3px solid var(--sage-dk);">
+      <div class="period-tag" style="color:var(--sage-dk);">2022–2023</div>
+      <div class="period-title">Visión agroecológica — Nuevo pico</div>
+      <div class="period-desc">PND 2022–2026 centra sostenibilidad. Política de Agroecología, transición regenerativa, economías campesinas. ~COP 200 mil M anuales — máximo de la serie.</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Proporción de inversión verde vs. total agrícola</div>
+    <div class="card-sub">Participación relativa de lo verde dentro del presupuesto agrícola público — aún marginal</div>
+    <div style="display:flex;gap:14px;justify-content:space-around;margin-bottom:14px;">
+      <div class="arc-wrap">
+        <svg width="100" height="100" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="36" fill="none" stroke="var(--border)" stroke-width="10"/>
+          <circle cx="50" cy="50" r="36" fill="none" stroke="var(--stone)" stroke-width="10"
+            stroke-dasharray="226.19 226.19" stroke-dashoffset="222.1"
+            stroke-linecap="round" transform="rotate(-90 50 50)"/>
+        </svg>
+        <div class="arc-num" style="color:var(--stone);font-size:20px;">1.81%</div>
+        <div class="arc-lbl">2011</div>
+      </div>
+      <div style="display:flex;align-items:center;font-size:20px;color:var(--sage);">→</div>
+      <div class="arc-wrap">
+        <svg width="100" height="100" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="36" fill="none" stroke="var(--border)" stroke-width="10"/>
+          <circle cx="50" cy="50" r="36" fill="none" stroke="var(--sage)" stroke-width="10"
+            stroke-dasharray="226.19 226.19" stroke-dashoffset="220.8"
+            stroke-linecap="round" transform="rotate(-90 50 50)"/>
+        </svg>
+        <div class="arc-num" style="color:var(--sage);font-size:20px;">2.37%</div>
+        <div class="arc-lbl">2023</div>
+      </div>
+    </div>
+    <div style="font-size:10.5px;color:var(--dark);font-weight:600;margin-bottom:8px;">Municipios con inversión verde:</div>
+    <div class="ll-row">
+      <div class="ll-lbl md" style="font-size:10px;">2020</div>
+      <div class="ll-trk"><div class="ll-bar stone" style="width:31.1%"></div><div class="ll-dot stone"></div></div>
+      <div class="ll-val">140</div>
+    </div>
+    <div class="ll-row">
+      <div class="ll-lbl md" style="font-size:10px;">2023</div>
+      <div class="ll-trk"><div class="ll-bar" style="width:100%"></div><div class="ll-dot"></div></div>
+      <div class="ll-val">450</div>
+    </div>
+    <div class="note amber">El número de municipios con inversión verde agrícola saltó de 140 a 450 entre 2020 y 2023 — un aumento de +221%. Aun así, el 58% del país permanece sin inversión verde.</div>
+  </div>
+</div>
+
+<!-- SECTION 03: DISTRIBUCIÓN TERRITORIAL — con mapa de activación -->
+<div class="sec-label">03 — Distribución Territorial: Activación Progresiva por Períodos (2011–2023)</div>
+<div class="grid-2">
+
+  <!-- Top departamentos -->
+  <div class="card">
+    <div class="card-title">Departamentos con mayor inversión verde agrícola acumulada</div>
+    <div class="card-sub">Miles de millones COP (2011–2023) · El top 10 concentra el 58% del total nacional</div>
+    <div class="ll-row"><div class="ll-lbl">Caquetá</div><div class="ll-trk"><div class="ll-bar" style="width:100%"></div><div class="ll-dot"></div></div><div class="ll-val">~90 mil M</div></div>
+    <div class="ll-row"><div class="ll-lbl">Córdoba</div><div class="ll-trk"><div class="ll-bar" style="width:86.7%"></div><div class="ll-dot"></div></div><div class="ll-val">~78 mil M</div></div>
+    <div class="ll-row"><div class="ll-lbl">Chocó</div><div class="ll-trk"><div class="ll-bar tan" style="width:71.1%"></div><div class="ll-dot tan"></div></div><div class="ll-val">~63 mil M</div></div>
+    <div class="ll-row"><div class="ll-lbl">Sucre</div><div class="ll-trk"><div class="ll-bar tan" style="width:52.2%"></div><div class="ll-dot tan"></div></div><div class="ll-val">~47 mil M</div></div>
+    <div class="ll-row"><div class="ll-lbl">Casanare</div><div class="ll-trk"><div class="ll-bar amber" style="width:52.2%"></div><div class="ll-dot amber"></div></div><div class="ll-val">~47 mil M</div></div>
+    <div class="ll-row"><div class="ll-lbl">Boyacá</div><div class="ll-trk"><div class="ll-bar amber" style="width:50%"></div><div class="ll-dot amber"></div></div><div class="ll-val">~45 mil M</div></div>
+    <div class="ll-row"><div class="ll-lbl">La Guajira</div><div class="ll-trk"><div class="ll-bar amber" style="width:49%"></div><div class="ll-dot amber"></div></div><div class="ll-val">~44 mil M</div></div>
+    <div class="ll-row"><div class="ll-lbl">Antioquia</div><div class="ll-trk"><div class="ll-bar stone" style="width:46%"></div><div class="ll-dot stone"></div></div><div class="ll-val">~42 mil M</div></div>
+    <div class="ll-row"><div class="ll-lbl">Meta</div><div class="ll-trk"><div class="ll-bar stone" style="width:38%"></div><div class="ll-dot stone"></div></div><div class="ll-val">~34 mil M</div></div>
+    <div class="ll-row"><div class="ll-lbl">Nariño</div><div class="ll-trk"><div class="ll-bar stone" style="width:33%"></div><div class="ll-dot stone"></div></div><div class="ll-val">~30 mil M</div></div>
+    <div class="note" style="margin-top:10px;">Los departamentos periféricos (Caquetá, Chocó, La Guajira) dominan la inversión absoluta. En contraste, los centros agropecuarios del interior tienen presencias más modestas pese a su peso productivo.</div>
+  </div>
+
+  <!-- MAPA DE ACTIVACIÓN -->
+  <div class="card">
+    <div class="card-title">Expansión territorial de la inversión verde agrícola por período de gobierno</div>
+    <div class="card-sub">Inversión per cápita por municipio (pesos/ha) · A más oscuro, mayor intensidad · Fuente: DNP-MRV 2011–2023</div>
+    <div class="map-container">
+      <img src="mapa_activacion_periodos.png" alt="Mapa de activación municipal por períodos de gobierno 2011-2017, 2018-2021 y 2022-Presente">
+    </div>
+    <div class="note amber" style="margin-top:10px;">El mapa muestra cómo la inversión verde se fue activando en nuevos municipios a lo largo de tres períodos. La concentración en el noroeste (Chocó, Córdoba, La Guajira) contrasta con la ausencia relativa en el corredor andino interior.</div>
+  </div>
+</div>
+
+<!-- SECTION 04: ALINEACIÓN ESPACIAL — con mapa de relevancia -->
+<div class="sec-label">04 — Alineación Espacial: Inversión Verde vs. Presiones Ambientales</div>
+<div class="grid-2e">
+
+  <!-- Coeficiente de relevancia -->
+  <div class="card">
+    <div class="card-title">Coeficiente de relevancia territorial (c = %inversión / %área agropecuaria)</div>
+    <div class="card-sub">Valores c &lt; 1 señalan sub-asignación relativa respecto a la participación agropecuaria del departamento</div>
+    <div style="margin-bottom:10px;font-size:10.5px;color:var(--dark);">Departamentos con <strong>déficit persistente</strong> pese a su peso productivo:</div>
+    <div class="spat-card">
+      <div class="spat-icon" style="background:var(--coral-lt);">🌾</div>
+      <div class="spat-text">
+        <div class="spat-lbl">Corredor interior y Caribe</div>
+        <div class="spat-desc">Tolima, Valle del Cauca, Caldas, Risaralda, Norte de Santander, Bolívar, Magdalena — altos productores con coeficiente c &lt; 1.</div>
+      </div>
+    </div>
+    <div class="spat-card">
+      <div class="spat-icon" style="background:var(--coral-lt);">🗺️</div>
+      <div class="spat-text">
+        <div class="spat-lbl">Fronteras y territorios estratégicos</div>
+        <div class="spat-desc">Vichada, Meta y Caquetá muestran déficit relativo a pesar de sus grandes extensiones agropecuarias y presiones ambientales altas.</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;margin-bottom:6px;font-size:10.5px;font-weight:600;color:var(--dark);">Análisis bivariado: inversión vs. presiones ambientales</div>
+    <div class="spat-card" style="border-left:3px solid var(--coral);">
+      <div class="spat-icon" style="background:var(--coral-lt);color:var(--coral);">🌳</div>
+      <div class="spat-text">
+        <div class="spat-lbl" style="color:var(--coral);">Deforestación</div>
+        <div class="spat-desc">Cinturón crítico en el piedemonte Andino-Amazónico: Meta, Guaviare, Caquetá, Putumayo y Catatumbo. Municipios: La Macarena, Vista Hermosa, Mapiripán.</div>
+      </div>
+    </div>
+    <div class="spat-card" style="border-left:3px solid var(--amber);">
+      <div class="spat-icon" style="background:var(--amber-lt);color:var(--amber);">🏔️</div>
+      <div class="spat-text">
+        <div class="spat-lbl" style="color:var(--amber);">Erosión y estrés hídrico</div>
+        <div class="spat-desc">Corredor andino: Alto Magdalena (Tolima–Huila), zona cafetera. IDEAM: 92.9% de tierras agrícolas muestran algún grado de erosión.</div>
+      </div>
+    </div>
+    <div class="note coral" style="margin-top:6px;">Los "hotspots de necesidad" (alta degradación, baja inversión) se concentran en el piedemonte andino-amazónico, el Alto Magdalena y los valles inter-andinos.</div>
+  </div>
+
+  <!-- MAPA DE RELEVANCIA -->
+  <div class="card">
+    <div class="card-title">Análisis bivariado: deforestación vs. inversión verde por hectárea (Fig. 1.9)</div>
+    <div class="card-sub">Rojo oscuro = alta deforestación + baja inversión (hotspot de necesidad) · Azul/gris = baja deforestación · Verde = alta inversión</div>
+    <div class="map-container">
+      <img src="mapa_relevancia_deforestacion.png" alt="Mapa bivariado deforestación e inversión verde por hectárea a nivel municipal">
+    </div>
+    <div class="note coral" style="margin-top:10px;">Los municipios en rojo concentran alta presión por deforestación <em>y</em> baja inversión verde — exactamente donde más se necesita. El cinturón crítico se extiende por el piedemonte Andino-Amazónico: Meta, Caquetá, Guaviare y Putumayo.</div>
+  </div>
+</div>
+
+<!-- SECTION 05: CONCLUSIONES -->
+<div class="sec-label">05 — Conclusiones y Recomendaciones de Priorización</div>
+<div class="grid-3b">
+  <div class="card">
+    <div class="card-title">Hallazgo central</div>
+    <div class="card-sub">La inversión verde agrícola colombiana: progreso real, brechas estructurales</div>
+    <div style="text-align:center;margin-bottom:14px;padding:14px;background:var(--coral-lt);border-radius:8px;">
+      <div style="font-size:32px;font-weight:700;color:var(--coral);letter-spacing:-2px;">97.63%</div>
+      <div style="font-size:10.5px;color:var(--muted);margin-top:4px;">del presupuesto agrícola público<br>aún no es inversión verde (2023)</div>
+    </div>
+    <div class="ll-row">
+      <div class="ll-lbl md" style="font-size:10px;">Inversión verde</div>
+      <div class="ll-trk"><div class="ll-bar" style="width:2.37%"></div><div class="ll-dot"></div></div>
+      <div class="ll-val">2.37%</div>
+    </div>
+    <div class="ll-row">
+      <div class="ll-lbl md" style="font-size:10px;">Inversión convencional</div>
+      <div class="ll-trk"><div class="ll-bar coral" style="width:97.63%"></div><div class="ll-dot coral"></div></div>
+      <div class="ll-val">97.63%</div>
+    </div>
+    <div class="note coral" style="margin-top:10px;">El marco normativo colombiano es ambicioso (NDCs, NDP, Agroecología), pero la asignación efectiva de recursos agropecuarios verdes sigue siendo estructuralmente marginal.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Brecha upstream–downstream</div>
+    <div class="card-sub">Compromisos internacionales vs. asignación efectiva de recursos</div>
+    <div style="margin-bottom:10px;">
+      <div style="font-size:10px;font-weight:700;color:var(--sage-dk);margin-bottom:3px;">Compromisos upstream (ambiciosos)</div>
+      <div class="stk-bar" style="height:18px;">
+        <div class="stk-seg" style="background:var(--sage-dk);width:100%;font-size:9px;">NDC -51% GEI · Carbono neutro 2050 · 34% áreas protegidas</div>
+      </div>
+    </div>
+    <div style="text-align:center;font-size:20px;color:var(--coral);margin:6px 0;">⬇</div>
+    <div style="margin-bottom:10px;">
+      <div style="font-size:10px;font-weight:700;color:var(--coral);margin-bottom:3px;">Asignación downstream (marginal)</div>
+      <div class="stk-bar" style="height:18px;">
+        <div class="stk-seg" style="background:var(--sage);width:2.37%;font-size:8px;"></div>
+        <div class="stk-seg" style="background:var(--border);width:97.63%;font-size:8px;color:var(--muted);">97.63% convencional</div>
+      </div>
+    </div>
+    <div style="margin-top:14px;font-size:10.5px;font-weight:600;color:var(--dark);margin-bottom:8px;">Factores explicativos de la brecha:</div>
+    <div class="spat-card" style="padding:8px 10px;margin-bottom:6px;">
+      <div class="spat-text">
+        <div class="spat-lbl">Sin criterios de priorización explícita</div>
+        <div class="spat-desc">La asignación no usa deforestación, erosión, estrés hídrico o riesgo climático como criterios formales de elegibilidad.</div>
+      </div>
+    </div>
+    <div class="spat-card" style="padding:8px 10px;margin-bottom:6px;">
+      <div class="spat-text">
+        <div class="spat-lbl">Dependencia de ciclos de proyecto</div>
+        <div class="spat-desc">La inversión verde se moviliza por proyectos ad hoc y carteras concentradas, sin escalamiento territorial sistemático.</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Recomendaciones de política</div>
+    <div class="card-sub">Opciones para alinear la asignación financiera con las necesidades territoriales</div>
+    <div class="period-card" style="border-left:3px solid var(--sage-dk);margin-bottom:6px;">
+      <div class="period-tag" style="color:var(--sage-dk);">Estrategia de largo plazo</div>
+      <div class="period-title">Construir una agenda que trascienda las administraciones</div>
+      <div class="period-desc">Establecer metas explícitas y con horizonte temporal para superar el ~2% actual de inversión verde en gasto agropecuario total. Los compromisos deben ser vinculantes y perdurar más allá de los cambios de gobierno.</div>
+    </div>
+    <div class="period-card" style="border-left:3px solid var(--amber);margin-bottom:6px;">
+      <div class="period-tag" style="color:var(--amber);">Focalización transparente</div>
+      <div class="period-title">Adoptar criterios ambientales explícitos para la asignación de recursos</div>
+      <div class="period-desc">Incorporar presión de deforestación, riesgo de erosión, estrés hídrico, riesgo climático e inversión verde por hectárea agrícola como criterios estándar de aprobación de proyectos y seguimiento de su impacto territorial.</div>
+    </div>
+    <div class="period-card" style="border-left:3px solid var(--tan);margin-bottom:6px;">
+      <div class="period-tag" style="color:var(--tan);">Salvaguardas territoriales</div>
+      <div class="period-title">Garantizar la transición en territorios agrícolas existentes</div>
+      <div class="period-desc">Implementar salvaguardas y herramientas de monitoreo para asegurar que la transición ocurra dentro de territorios ya productivos, priorizando proyectos con bajo riesgo de expansión de la frontera agrícola.</div>
+    </div>
+    <div class="period-card" style="border-left:3px solid var(--sage);margin-bottom:6px;">
+      <div class="period-tag" style="color:var(--sage-dk);">SGR y regalías</div>
+      <div class="period-title">Activar el SGR como motor de la transición agroecológica</div>
+      <div class="period-desc">Convertir el Sistema General de Regalías en un instrumento explícito de transición: estandarizar plantillas de proyectos NbS y criterios de aprobación; asegurar un portafolio territorial diversificado. El MRV muestra que la inversión verde vía SGR es episódica y concentrada, y las entrevistas señalan que las regalías siguen siendo un canal subutilizado para escalar NbS.</div>
+    </div>
+    <div class="period-card" style="border-left:3px solid var(--coral);margin-bottom:6px;">
+      <div class="period-tag" style="color:var(--coral);">Monitoreo de uso del suelo</div>
+      <div class="period-title">Priorizar proyectos con bajo riesgo de expansión de frontera</div>
+      <div class="period-desc">Monitorear sistemáticamente los cambios de uso del suelo asociados a proyectos verdes y sus consecuencias climáticas y ecosistémicas. La expansión de área cosechada observada debe verificarse: ¿ocurre en territorios ya agrícolas o implica presión sobre ecosistemas naturales?</div>
+    </div>
+    <div class="period-card" style="border-left:3px solid var(--stone);margin-bottom:6px;">
+      <div class="period-tag" style="color:var(--stone);">MRV y evaluación</div>
+      <div class="period-title">Fortalecer la trazabilidad y la evaluación de impacto periódica</div>
+      <div class="period-desc">Mejorar la trazabilidad desde los desembolsos hasta los resultados territoriales. Institucionalizar evaluaciones de impacto periódicas para que las decisiones de escalamiento y reforma se basen en evidencia sobre efectos económicos y ambientales.</div>
+    </div>
+  </div>
+</div>
+
+<!-- NOTA PRÓXIMAMENTE -->
+<div style="background:var(--sage-lt);border:1px solid var(--border);border-radius:8px;padding:14px 20px;margin-bottom:14px;display:flex;align-items:center;gap:12px;">
+  <span style="font-size:18px;">📄</span>
+  <span style="font-size:12px;color:var(--brown);">
+    Próximamente encontrará el informe completo disponible en este
+    <a href="#" style="color:var(--sage-dk);font-weight:600;text-decoration:underline;">enlace</a>.
+  </span>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>Sección 1 — Analytical Study: Promoting a Transition to Sustainable Support for Agriculture in Colombia · DNP-MRV 2011–2023 · IDEAM · Taxonomía Verde de Colombia (TVC, 2022) · Elaborado por Universidad de los Andes con la financiación de UNEP</div>
+  <div>Infografía en español · Precios constantes 2015 · Procesamiento propio</div>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+#transition-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: var(--verde-oscuro);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+#transition-overlay.activo {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.transicion-logo {
+    font-family: 'Floreal', Georgia, serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--crema);
+    letter-spacing: 0.1em;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s;
+}
+
+#transition-overlay.activo .transicion-logo {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.transicion-barra-contenedor {
+    width: 80px;
+    height: 1px;
+    background-color: rgba(184, 207, 216, 0.2);
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease 0.15s;
+}
+
+#transition-overlay.activo .transicion-barra-contenedor {
+    opacity: 1;
+}
+
+.transicion-barra {
+    width: 0%;
+    height: 100%;
+    background-color: var(--ocre);
+}
+
+#transition-overlay.activo .transicion-barra {
+    animation: llenar-barra 0.45s ease 0.2s forwards;
+}
+
+@keyframes llenar-barra {
+    from { width: 0%; }
+    to   { width: 100%; }
+}
