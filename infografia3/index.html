@@ -9,18 +9,18 @@
   @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;600;700;800&family=Barlow+Condensed:wght@700;800&display=swap');
 
   :root {
-    --verde-oscuro: #2e1f0f;
-    --verde-medio:  #71502f;
-    --verde-claro:  #4a7d94;
-    --verde-menta:  #a7d4e4;
-    --verde-palido: #c5e3ee;
-    --crema:        #f8f4ec;
-    --blanco:       #FFFFFF;
-    --gris-oscuro:  #2e1f0f;
-    --gris-medio:   #8a7e74;
-    --amarillo:     #fdc57e;
-    --naranja:      #c47854;
-    --azul-acento:  #4a7d94;
+    --verde-oscuro: #1B4332;
+    --verde-medio: #2D6A4F;
+    --verde-claro: #40916C;
+    --verde-menta: #74C69D;
+    --verde-palido: #B7E4C7;
+    --crema: #F5F1EB;
+    --blanco: #FFFFFF;
+    --gris-oscuro: #2C3E50;
+    --gris-medio: #5D6D7E;
+    --amarillo: #F4A261;
+    --naranja: #E76F51;
+    --azul-acento: #264653;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,8 +29,8 @@
     font-family: 'Barlow', sans-serif;
     background: var(--crema);
     color: var(--gris-oscuro);
-    width: 1200px;
-    margin: 0 auto;
+    width: 100%;
+    overflow-x: hidden;
   }
 
   /* ── HEADER ── */
@@ -54,7 +54,7 @@
     bottom: -80px; left: 200px;
     width: 500px; height: 500px;
     border-radius: 50%;
-    background: rgba(167,212,228,0.08);
+    background: rgba(116,198,157,0.08);
   }
   .header-top {
     display: flex;
@@ -598,22 +598,13 @@
     letter-spacing: 0.5px;
   }
 </style>
-<script>
-(function(){
-  var W = 1200;
-  function fit(){
-    var s = Math.min(1, window.innerWidth / W);
-    document.body.style.zoom = s;
-  }
-  window.addEventListener('load', fit);
-  window.addEventListener('resize', fit);
-})();
-</script></head>
+</head>
 <body><nav style="position:sticky;top:0;z-index:1000;background:#2e1f0f;padding:14px 32px;display:flex;align-items:center;gap:20px;border-bottom:3px solid #fdc57e;box-sizing:border-box;">
   <a href="../" style="text-decoration:none;color:#fdc57e;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.5px;white-space:nowrap;">← Inicio</a>
   <span style="color:#f8f4ec;font-family:'Inter',sans-serif;font-size:12px;opacity:0.6;letter-spacing:0.3px;">Observatorio de Agricultura y Ganadería Sostenibles en Colombia</span>
 </nav>
-<div style="overflow-x:auto;padding-top:32px;">
+<div id="inf-outer" style="width:100%;overflow:hidden;">
+<div id="inf-inner" style="width:1200px;transform-origin:top left;">
 
 <!-- ══════════════════════════════════════════════
      HEADER
@@ -692,7 +683,7 @@
           </div>
         </div>
         <div style="margin-top:12px;padding:10px;background:#f9f9f9;border-radius:8px;">
-          <div style="font-size:11px;color:#c47854;font-weight:700;">⚠ 94% de recursos → insumos convencionales</div>
+          <div style="font-size:11px;color:#E76F51;font-weight:700;">⚠ 94% de recursos → insumos convencionales</div>
           <div style="font-size:10px;color:#999;margin-top:2px;">Sin condicionalidad ambiental efectiva</div>
         </div>
       </div>
@@ -721,7 +712,7 @@
             <div class="tl-program-desc">Sin oferta de bioinsumos suficiente, subsidiar demanda no es efectivo → activación del Programa Nacional de Biofábricas.</div>
           </div>
         </div>
-        <div style="margin-top:12px;padding:10px;background:#d8eef5;border-radius:8px;">
+        <div style="margin-top:12px;padding:10px;background:#e8f5e9;border-radius:8px;">
           <div style="font-size:11px;color:var(--verde-claro);font-weight:700;">✔ El FAIA comienza a escalar la oferta de insumos sostenibles</div>
         </div>
       </div>
@@ -796,7 +787,7 @@
   </div>
 
   <!-- Aclaración conceptual bioinsumos vs SbN -->
-  <div style="background:rgba(167,212,228,0.12);border-left:4px solid var(--verde-menta);border-radius:0 10px 10px 0;padding:16px 20px;margin-bottom:24px;font-size:12.5px;color:rgba(255,255,255,0.88);line-height:1.6;">
+  <div style="background:rgba(116,198,157,0.12);border-left:4px solid var(--verde-menta);border-radius:0 10px 10px 0;padding:16px 20px;margin-bottom:24px;font-size:12.5px;color:rgba(255,255,255,0.88);line-height:1.6;">
     <strong style="color:var(--verde-menta);display:block;margin-bottom:5px;">📌 ¿Bioinsumos = SbN?</strong>
     Los bioinsumos <em>no constituyen en sí mismos una SbN</em>, pero pueden ser un componente o instrumento dentro de estrategias de producción agropecuaria basadas en la naturaleza. Su financiamiento a través del FAIA representa un avance hacia prácticas más sostenibles con potencial de articularse a enfoques SbN.
   </div>
@@ -838,7 +829,7 @@
         <h3>Distribución de recursos 2025: sostenibles vs. convencionales</h3>
         <canvas id="sbnChart" height="180"></canvas>
         <div style="margin-top:12px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-          <div style="display:flex;align-items:center;gap:5px;"><div style="width:12px;height:12px;background:#2e1f0f;border-radius:50%"></div><span style="font-size:11px;color:rgba(255,255,255,0.8);">Insumos sostenibles 47%</span></div>
+          <div style="display:flex;align-items:center;gap:5px;"><div style="width:12px;height:12px;background:#1B4332;border-radius:50%"></div><span style="font-size:11px;color:rgba(255,255,255,0.8);">Insumos sostenibles 47%</span></div>
           <div style="display:flex;align-items:center;gap:5px;"><div style="width:12px;height:12px;background:rgba(255,255,255,0.2);border-radius:50%"></div><span style="font-size:11px;color:rgba(255,255,255,0.8);">Insumos convencionales 53%</span></div>
         </div>
         <div style="margin-top:8px;font-size:10px;color:rgba(255,255,255,0.45);text-align:center;">Bioinsumos, fertilizantes orgánicos y acondicionadores de suelos</div>
@@ -932,7 +923,7 @@
           <span style="color:var(--verde-menta)">▸</span> <strong>Boyacá/Huila:</strong> sobreuso de agroquímicos, erosión, sequías<br>
           <span style="color:var(--verde-menta)">▸</span> <strong>Córdoba:</strong> ganadería extensiva, contaminación hídrica
         </div>
-        <div style="margin-top:14px;padding:10px;background:rgba(167,212,228,0.15);border-radius:8px;font-size:11px;color:var(--verde-menta);font-weight:600;">
+        <div style="margin-top:14px;padding:10px;background:rgba(116,198,157,0.15);border-radius:8px;font-size:11px;color:var(--verde-menta);font-weight:600;">
           → El FAIA puede articularse con estrategias SbN en estos territorios, usando bioinsumos como componentes de prácticas productivas más sostenibles
         </div>
       </div>
@@ -1001,11 +992,11 @@
 </div>
 
 <!-- NOTA PRÓXIMAMENTE -->
-<div style="background:#d8eef5;border:1px solid #c5dde7;border-radius:8px;padding:14px 20px;margin:0 0 14px 0;display:flex;align-items:center;gap:12px;">
+<div style="background:#E8F0EC;border:1px solid #c8d8cc;border-radius:8px;padding:14px 20px;margin:0 0 14px 0;display:flex;align-items:center;gap:12px;">
   <span style="font-size:18px;">📄</span>
-  <span style="font-size:12px;color:#71502f;">
+  <span style="font-size:12px;color:#4A3728;">
     Próximamente encontrará el informe completo disponible en este
-    <a href="#" style="color:#4a7d94;font-weight:600;text-decoration:underline;">enlace</a>.
+    <a href="#" style="color:#3D6B5A;font-weight:600;text-decoration:underline;">enlace</a>.
   </span>
 </div>
 
@@ -1029,8 +1020,8 @@ new Chart(sbnCtx, {
     labels: ['Insumos sostenibles', 'Convencionales'],
     datasets: [{
       data: [47, 53],
-      backgroundColor: ['#2e1f0f', 'rgba(255,255,255,0.15)'],
-      borderColor: ['#4a7d94', 'rgba(255,255,255,0.1)'],
+      backgroundColor: ['#1B4332', 'rgba(255,255,255,0.15)'],
+      borderColor: ['#40916C', 'rgba(255,255,255,0.1)'],
       borderWidth: 2,
       hoverOffset: 6
     }]
@@ -1053,7 +1044,7 @@ new Chart(sbnCtx, {
       const { ctx, width, height } = chart;
       ctx.save();
       ctx.font = 'bold 28px Barlow Condensed, sans-serif';
-      ctx.fillStyle = '#a7d4e4';
+      ctx.fillStyle = '#74C69D';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       const cx = chart.getDatasetMeta(0).data[0].x;
@@ -1069,6 +1060,32 @@ new Chart(sbnCtx, {
 
 </script>
 
-</div>
+</div></div>
+<script>
+(function(){
+  function scaleInf(){
+    var inner=document.getElementById('inf-inner');
+    var outer=document.getElementById('inf-outer');
+    var w=outer.offsetWidth;
+    if(w<1200){
+      var s=w/1200;
+      inner.style.transform='scale('+s+')';
+      inner.style.transformOrigin='top left';
+      inner.style.marginLeft='0';
+      inner.style.marginRight='0';
+      outer.style.height=(inner.scrollHeight*s)+'px';
+    } else {
+      inner.style.transform='';
+      inner.style.marginLeft='auto';
+      inner.style.marginRight='auto';
+      outer.style.height='';
+    }
+  }
+  window.addEventListener('resize',scaleInf);
+  window.addEventListener('load',scaleInf);
+  scaleInf();
+})();
+</script>
+
 </body>
 </html>
